@@ -15,7 +15,7 @@
 
 
 	<div class="container">
-  		<div class="jumbotron">
+  		<div >
     		<h1>${PageName}</h1>
 		</div>
 	</div>
