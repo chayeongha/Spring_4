@@ -2,11 +2,11 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<c:import url="../layout/bootStrap.jsp"/>
+	<c:import url="./layout/bootStrap.jsp"/>
 	<title>Home</title>
 </head>
 <body>
-	<c:import url="../layout/nav.jsp" />
+	<c:import url="./layout/nav.jsp" />
 <h1>
 	Hello world!  
 </h1>
