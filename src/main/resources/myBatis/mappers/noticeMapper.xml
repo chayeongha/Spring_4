@@ -6,7 +6,34 @@
   
   <mapper namespace="noticeMapper">
   
- 	<select id="boardCount" resultType="java.lang.Integer" parameterType="com.cyh.s4.util.Pager">
+  
+  <!--boardDelete  -->
+  <delete id="boardDelete"  parameterType="java.lang.Integer">
+    delete notice where num=#{num}
+  </delete>
+  
+  
+  <!--boardUpdate  -->
+  
+  <update id="boardUpdate" parameterType="NoticeVO">
+  update notice set title=#{title},writer=#{writer} , contents=#{contents} 
+  where num=#{num}
+  
+   </update>
+  
+  
+  
+  <!--  boardSelect --> 
+  <select id="boardSelect" parameterType="NoticeVO" resultType="NoticeVO">
+   select * from notice where num=#{num}
+  
+  </select>
+  
+  
+  
+  
+  
+ 	<select id="boardCount" resultType="java.lang.Integer" parameterType="Pager">
   			select count(num) from notice 
 			<choose>
 				<when test="kind == 'kt'">
@@ -23,7 +50,7 @@
     
     
     
-    	<select id="boardList" parameterType="com.cyh.s4.util.Pager" resultType="com.cyh.s4.model.BoardNoticeVO">
+    	<select id="boardList" parameterType="Pager" resultType="NoticeVO">
   		select * from
 			(select N.*, rownum R from
 				(select * from notice 
@@ -41,6 +68,14 @@
 				order by num desc) N)
 		where R between #{startRow} and #{lastRow}
  	 	</select>
+  
+  <insert id="boardWrite" parameterType="BoardVO">
+  		
+  		insert into notice
+		values(board_seq.nextval, #{title},
+		#{writer}, #{contents} , sysdate , 0)
+  
+  </insert>
   
   
   
