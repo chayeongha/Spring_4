@@ -34,7 +34,7 @@
 		        <td>${dto.num}</td>
 		        <td>
 		        <c:catch>
-		        <c:forEach begin="1" end="${dto.depth}">--</c:forEach>
+		        <c:forEach begin="1" end="${dto.depth}">↳↳</c:forEach>
 		        </c:catch>
 		        <a href="./${board}Select?num=${dto.num}">${dto.title}</a></td>
 		        <td>${dto.writer}</td>

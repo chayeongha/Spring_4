@@ -44,9 +44,9 @@
 	<div class="button">
 
 		<a class="btn btn-danger" href="${board}Update?num=${dto.num} ">Update</a>
-		<a href="${board}Delete?num=${dto.num}" class="btn btn-primary">Delete</a>
+		<a class="btn btn-primary" href="${board}Delete?num=${dto.num}" >Delete</a>
 		<c:if test="${board ne 'notice'}">
-		<a href="${board}Reply?num=${dto.num} " class="btn btn-success">답변달기</a>
+		<a class="btn btn-success" href="${board}Reply?num=${dto.num} " >Reply</a>
 		</c:if>
 	</div>
 

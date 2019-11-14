@@ -17,26 +17,21 @@ public class BoardQnaDAO implements BoardDAO{
 	@Inject
 	private SqlSession sqlSession;
 	
+	
 	private final static String NAMESPACE="qnaMapper.";
 
-	public int boardReplyUpdate(BoardQnaVO qnaVO)throws Exception {
-		
-		return sqlSession.update(NAMESPACE+"boardReplyUpdate", qnaVO );
-		
+	
+	
+	public int boardReplyUpdate(BoardQnaVO boardQnaVO) throws Exception{
+		return sqlSession.update(NAMESPACE+"boardReplyUpdate", boardQnaVO);
 	}
 	
-	
-	
-	
-	  public int boardReply(BoardQnaVO qnaVO) throws Exception{
-	 
-	  return sqlSession.insert(NAMESPACE+"boardReply" ,qnaVO); }
+	public int boardReply(BoardQnaVO boardQnaVO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"boardReply", boardQnaVO);
+	}
 	 
 	
-	
-	
-	
-	
+
 	@Override
 	public List<BoardVO> boardList(Pager pager) throws Exception {
 		

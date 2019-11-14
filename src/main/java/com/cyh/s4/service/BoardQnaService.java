@@ -17,26 +17,41 @@ public class BoardQnaService implements BoardService {
 	@Inject
 	private BoardQnaDAO boardQnaDAO;
 
-	
-	  public int boardReply(BoardVO boardVO) throws Exception{ 
-		BoardQnaVO parent=(BoardQnaVO)boardQnaDAO.boardSelect(boardVO);
-		int result =boardQnaDAO.boardReplyUpdate(parent);
+
+	public int boardReply(BoardVO boardVO) throws Exception{
+		
+		BoardQnaVO parent = (BoardQnaVO)boardQnaDAO.boardSelect(boardVO);
+		
+		int result = boardQnaDAO.boardReplyUpdate(parent);
+
+		//방법2,
 		parent.setTitle(boardVO.getTitle());
 		parent.setWriter(boardVO.getWriter());
 		parent.setContents(boardVO.getContents());
-		parent.setStep(parent.getStep()+1); parent.setStep(parent.getDepth()+1);
-	 
-		BoardQnaVO child = new BoardQnaVO(); child.setTitle(boardVO.getTitle());
-		child.setWriter(boardVO.getWriter());
-		child.setContents(boardVO.getContents()); child.setRef(parent.getRef());
-		child.setStep(parent.getStep()+1); child.setDepth(parent.getDepth()+1);
-	 
-		return boardQnaDAO.boardReplyUpdate(parent);
-	  
-	  }
-	 
-	 
-	 
+		parent.setStep(parent.getStep()+1);
+		parent.setDepth(parent.getDepth()+1);
+		
+		return boardQnaDAO.boardReply(parent);
+		
+		
+		//방법1,
+		//		BoardQnaVO child = new BoardQnaVO(); 
+		//		child.setTitle(boardVO.getTitle());
+		//		child.setWriter(boardVO.getWriter());
+		//		child.setContents(boardVO.getContents());
+		//		child.setRef(parent.getRef());
+		//		child.setStep(parent.getStep()+1); 
+		//		child.setDepth(parent.getDepth()+1);
+		//		
+		//		boardQnaDAO.boardReplyUpdate(child);
+		//		
+		//		return boardQnaDAO.boardReply(child);
+
+
+	}
+
+
+
 
 	@Override
 	public List<BoardVO> boardList(Pager pager) throws Exception {

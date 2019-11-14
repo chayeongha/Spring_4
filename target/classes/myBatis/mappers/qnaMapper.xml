@@ -3,88 +3,97 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  
-   <mapper namespace="qnaMapper">
-   
-    <!--boardDelete  -->
-   <delete id="boardDelete" parameterType="java.lang.Integer">
-   delete qna where num=#{num}
-   </delete>
-   
-   
-   <!--답변달기  -->
-   <update id="boardReplyUpdate" parameterType="QnaVO">
-   	update qna set step= step+1
-   	where ref=#{ref} and step >#{step}
-   </update>
-  
-  
-  
-  <insert id="boardReply" parameterType="QnaVO">
-  insert into qna 
-  values(
-  board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, #{ref}, #{step}, #{depth}
-  )
-  </insert>
-   
- 
-  <!--검색창  --> 
-   <select id="boardCount" resultType="java.lang.Integer" parameterType="Pager">
-  			select count(num) from qna
-			<choose>
-				<when test="kind == 'kt'">
-					where title like '%'||#{search}||'%'
-				</when>
-				<when test="kind == 'kw'">
-					where writer like '%'||#{search}||'%'
-				</when>
-				<otherwise>
-					where contents like	'%'||#{search}||'%' 
-					<!-- or where title like '%'||#{search}||'%' -->
-				</otherwise>
-			</choose>
-  		</select>
-   
-   <!--boardList  -->
-   <select id="boardList" parameterType="Pager" resultType="QnaVO">
-  		select * from
-			(select Q.*, rownum R from
-				(select * from qna 
-				<choose>
-					<when test="kind == 'kt'">
-						where title like '%'||#{search}||'%'
-					</when>
-					<when test="kind == 'kw'">
-						where writer like '%'||#{search}||'%'
-					</when>
-					<when test="kind == 'kc'">
-						where contents like '%'||#{search}||'%'
-					</when>
-				</choose>
-				order by ref desc, step asc) Q)
-		where R between #{startRow} and #{lastRow}
- 	 	</select>
-   
-     <!--boardWrite  -->
-   <insert id="boardWrite" parameterType="BoardVO">
-  insert into qna values(board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate,0,board_seq.currval,0,0)
-   
-   </insert>
-   
-   
-  	<!--boardSelect  -->
-	<select id="boardSelect" parameterType="QnaVO" resultType="QnaVO">
-  		select *from qna where num=#{num}
-	
-	</select>   
-   
-   <!--boardUpdate  -->
-   <update id="boardUpdate" parameterType="QnaVO" >
-   	 update qna set title=#{title} , writer=#{writer}, contents=#{contents}
-		where num=#{num}
-   
-   </update>
-   
-   
-   </mapper>
+
+
+<mapper namespace="qnaMapper">
+
+
+
+	<!--답변달기 -->
+	<!--업데이트 -->
+	<update id="boardReplyUpdate" parameterType="QnaVO">
+		update qna set step=step+1 
+		where ref=#{ref} and step>#{step}
+	</update>
+
+	<insert id="boardReply" parameterType="QnaVO">
+		insert into qna values(
+		board_seq.nextval, 
+		#{title}, #{writer}, #{contents},sysdate, 0, 
+		#{ref}, #{step}, #{depth})
+	</insert>
+
+
+
+	<!--검색창 -->
+	<select id="boardCount" resultType="java.lang.Integer"
+		parameterType="Pager">
+		select count(num) from qna
+		<choose>
+			<when test="kind == 'kt'">
+				where title like '%'||#{search}||'%'
+			</when>
+			<when test="kind == 'kw'">
+				where writer like '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				where contents like '%'||#{search}||'%'
+				<!-- or where title like '%'||#{search}||'%' -->
+			</otherwise>
+		</choose>
+	</select>
+
+	<!--boardList -->
+	<select id="boardList" parameterType="Pager" resultType="QnaVO">
+		select * from
+		(select Q.*, rownum R from
+		(select * from qna
+		<choose>
+			<when test="kind == 'kt'">
+				where title like '%'||#{search}||'%'
+			</when>
+			<when test="kind == 'kw'">
+				where writer like '%'||#{search}||'%'
+			</when>
+			<when test="kind == 'kc'">
+				where contents like '%'||#{search}||'%'
+			</when>
+		</choose>
+		order by ref desc, step asc) Q)
+		where R between #{startRow} and
+		#{lastRow}
+	</select>
+
+	<!--boardWrite -->
+	<insert id="boardWrite" parameterType="BoardVO">
+		insert into qna
+		values(board_seq.nextval, #{title}, #{writer}, #{contents},
+		sysdate,0,board_seq.currval,0,0)
+
+	</insert>
+
+
+	<!--boardSelect -->
+	<select id="boardSelect" parameterType="QnaVO"
+		resultType="QnaVO">
+		select *from qna where num=#{num}
+
+	</select>
+
+	<!--boardUpdate -->
+	<update id="boardUpdate" parameterType="QnaVO">
+		update qna set
+		title=#{title} , writer=#{writer}, contents=#{contents}
+		where
+		num=#{num}
+
+	</update>
+
+	<!--boardDelete -->
+	<delete id="boardDelete" parameterType="java.lang.Integer">
+		delete qna where
+		num=#{num}
+	</delete>
+
+
+</mapper>
