@@ -22,5 +22,7 @@ public interface MemberService {
 		//POINT UPDATE
 		public int pointUpdate(MemberVO memberVO)throws Exception;
 	
+		//idcheck
+		public MemberVO memberIdCheck(MemberVO memberVO)throws Exception;
 		
 }

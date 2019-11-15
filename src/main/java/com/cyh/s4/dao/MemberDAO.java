@@ -4,6 +4,8 @@ import com.cyh.s4.model.MemberVO;
 
 public interface MemberDAO {
 
+
+	
 	//JOIN
 	public int memberJoin(MemberVO memberVO)throws Exception;	
 	
@@ -22,6 +24,8 @@ public interface MemberDAO {
 	//POINT UPDATE
 	public int pointUpdate(MemberVO memberVO)throws Exception;
 
+	//IDCHECK
+	public MemberVO memberIdCheck(MemberVO memberVO) throws Exception;
 	
 }
 

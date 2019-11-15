@@ -14,8 +14,14 @@ public class MemberDAOImpl implements MemberDAO {
 	@Inject
 	private SqlSession sqlSession;
 	
-	private final static String NAMESPACE="memberMapper";
+	private static final String NAMESPACE="memberMapper.";
 		
+	//IDCHECK
+	public MemberVO memberIDCheck(MemberVO memberVO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"memberIdCheck", memberVO);
+		
+	}
+	
 	@Override
 	public int memberJoin(MemberVO memberVO) throws Exception {
 		
@@ -24,8 +30,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberVO memberLogin(MemberVO memberVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return sqlSession.selectOne(NAMESPACE+"memberLogin", memberVO);
 	}
 
 	@Override
@@ -44,6 +50,12 @@ public class MemberDAOImpl implements MemberDAO {
 	public int pointUpdate(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public MemberVO memberIdCheck(MemberVO memberVO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
