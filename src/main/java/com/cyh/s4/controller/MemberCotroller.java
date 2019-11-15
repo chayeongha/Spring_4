@@ -1,6 +1,7 @@
 package com.cyh.s4.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cyh.s4.model.MemberVO;
@@ -96,10 +98,19 @@ public class MemberCotroller {
 		
 	}*/
 		
-	
 
 	}
 	
+	@GetMapping(value = "memberLogout")
+	public String memberLogout(HttpSession session) throws Exception{
+		//session.removeAttribute("member");
+		session.invalidate();// 유지시간을 0으로 변경.(라이프사이클 )
+		
+		return "redirect:../";
+		
+	}
+	
+
 	
 	
 	
