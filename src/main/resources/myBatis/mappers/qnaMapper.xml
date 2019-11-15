@@ -7,28 +7,9 @@
 
 <mapper namespace="qnaMapper">
 
-
-
-	<!--답변달기 -->
-	<!--업데이트 -->
-	<update id="boardReplyUpdate" parameterType="QnaVO">
-		update qna set step=step+1 
-		where ref=#{ref} and step>#{step}
-	</update>
-
-	<insert id="boardReply" parameterType="QnaVO">
-		insert into qna values(
-		board_seq.nextval, 
-		#{title}, #{writer}, #{contents},sysdate, 0, 
-		#{ref}, #{step}, #{depth})
-	</insert>
-
-
-
-	<!--검색창 -->
-	<select id="boardCount" resultType="java.lang.Integer"
-		parameterType="Pager">
-		select count(num) from qna
+<!-- 코드를 두번쓰지않고 불러서 사용하기 -->
+	<sql id="bs">
+		
 		<choose>
 			<when test="kind == 'kt'">
 				where title like '%'||#{search}||'%'
@@ -41,6 +22,35 @@
 				<!-- or where title like '%'||#{search}||'%' -->
 			</otherwise>
 		</choose>
+	
+	</sql>
+
+	<!--답변달기 -->
+	<!--업데이트 -->
+	<update id="boardReplyUpdate" parameterType="BoardVO">
+		update qna set step=step+1 
+		where ref=(select ref from qna where num=#{num})
+		and step>(select step from qna where num=#{num})
+	</update>
+
+	<insert id="boardReply" parameterType="BoardVO">
+		insert into qna values(
+		board_seq.nextval, #{title}, #{writer}, #{contents},sysdate, 0, 
+		(select ref from qna where num=#{num}), 
+		(select step from qna where num=#{num})+1,
+		(select depth from qna where num=#{num})+1)
+	
+	</insert>
+
+
+
+	<!--검색창 -->
+	<select id="boardCount" resultType="java.lang.Integer"
+		parameterType="Pager">
+		select count(num) from qna
+		
+		<include refid="bs"></include>
+		
 	</select>
 
 	<!--boardList -->
@@ -48,17 +58,9 @@
 		select * from
 		(select Q.*, rownum R from
 		(select * from qna
-		<choose>
-			<when test="kind == 'kt'">
-				where title like '%'||#{search}||'%'
-			</when>
-			<when test="kind == 'kw'">
-				where writer like '%'||#{search}||'%'
-			</when>
-			<when test="kind == 'kc'">
-				where contents like '%'||#{search}||'%'
-			</when>
-		</choose>
+		
+		<include refid="bs"></include>
+		
 		order by ref desc, step asc) Q)
 		where R between #{startRow} and
 		#{lastRow}

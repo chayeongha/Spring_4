@@ -6,6 +6,25 @@
   
   <mapper namespace="noticeMapper">
   
+  <!--  -->
+<sql id="bs">
+	
+	<choose>
+				<when test="kind == 'kt'">
+					where title like '%'||#{search}||'%'
+				</when>
+				<when test="kind == 'kw'">
+					where writer like '%'||#{search}||'%'
+				</when>
+				<otherwise>
+					where contents like	'%'||#{search}||'%'
+				</otherwise>
+			</choose>
+
+
+</sql>
+
+  
   
   <!--boardDelete  -->
   <delete id="boardDelete"  parameterType="java.lang.Integer">
@@ -35,17 +54,7 @@
   
  	<select id="boardCount" resultType="java.lang.Integer" parameterType="Pager">
   			select count(num) from notice 
-			<choose>
-				<when test="kind == 'kt'">
-					where title like '%'||#{search}||'%'
-				</when>
-				<when test="kind == 'kw'">
-					where writer like '%'||#{search}||'%'
-				</when>
-				<otherwise>
-					where contents like	'%'||#{search}||'%'
-				</otherwise>
-			</choose>
+			<include refid="bs"></include>
   		</select>
     
     
@@ -54,17 +63,9 @@
   		select * from
 			(select N.*, rownum R from
 				(select * from notice 
-				<choose>
-					<when test="kind == 'kt'">
-						where title like '%'||#{search}||'%'
-					</when>
-					<when test="kind == 'kw'">
-						where writer like '%'||#{search}||'%'
-					</when>
-					<when test="kind == 'kc'">
-						where contents like '%'||#{search}||'%'
-					</when>
-				</choose>
+				
+				<include refid="bs"></include>
+				
 				order by num desc) N)
 		where R between #{startRow} and #{lastRow}
  	 	</select>
