@@ -23,6 +23,62 @@ public class MemberCotroller {
 	private MemberServiceImpl memberServiceImpl;
 	
 	
+	//MemberDelete
+	@GetMapping(value = "memberDelete")
+	public ModelAndView memberDelete(MemberVO memberVO,HttpSession session )throws Exception{
+		
+		int result = memberServiceImpl.memberDelete(memberVO);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		if(result==1) {
+			session.removeAttribute("member");
+			mv.addObject("msg", "Delete Success");
+			mv.addObject("path", "../");
+			mv.setViewName("common/common_result");
+		}else {
+			mv.addObject("msg", "Delete Fail");
+			mv.addObject("path", "./memberMypage");
+			mv.setViewName("common/common_result");
+		}
+		return mv;
+		
+			
+	}
+	
+	//MemberUpdate-GETMETHOD
+	@GetMapping(value = "memberUpdate")
+	public void memberUpdate() throws Exception {
+		
+	}
+	
+	//MemberUpdate-POSTMETHOD
+	@PostMapping(value = "memberUpdate")
+	public ModelAndView memberUpdate(MemberVO memberVO, HttpSession session)throws Exception{
+		
+		int result = memberServiceImpl.memberUpdate(memberVO);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		if(result==1) {
+			session.setAttribute("member", memberVO);
+			mv.setViewName("redirect:./memberMypage");
+		}else {
+			mv.addObject("msg", "Update Fail");
+			mv.addObject("path", "./memberMypage");
+			mv.setViewName("common/common_result");
+		}
+		return mv;
+	}
+	
+	
+	//MYpage
+	@GetMapping(value = "memberMypage")
+	public void memberMypage() throws Exception {
+	}
+	
+	
+	
 	@GetMapping(value = "memberJoin")
 	public void memberJoin() throws Exception{
 		
@@ -69,6 +125,9 @@ public class MemberCotroller {
 		
 	}
 	
+
+	
+	
 	@PostMapping(value = "memberLogin")
 	public ModelAndView memberLogin(MemberVO memberVO ,HttpSession session) throws Exception{
 		
@@ -103,10 +162,13 @@ public class MemberCotroller {
 	
 	@GetMapping(value = "memberLogout")
 	public String memberLogout(HttpSession session) throws Exception{
-		//session.removeAttribute("member");
-		session.invalidate();// 유지시간을 0으로 변경.(라이프사이클 )
-		
-		return "redirect:../";
+				// 1번째 : session의 속성을 없애는 방법
+				session.removeAttribute("member");
+				
+				// 2번째 : session의 시간을 초기화 즉, 0으로 만드는 방법.
+				// httpSession.invalidate();
+				
+				return "redirect:../";
 		
 	}
 	

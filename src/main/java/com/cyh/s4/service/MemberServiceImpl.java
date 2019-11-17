@@ -34,13 +34,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memberUpdate(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return memberDAOImpl.memberUpdate(memberVO);
 	}
 
 	@Override
 	public int memberDelete(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return memberDAOImpl.memberDelete(memberVO);
 	}
 
 	@Override

@@ -37,13 +37,13 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override // 개인정보수정
 	public int memberUpdate(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAMESPACE+"memberUpdate", memberVO);
 	}
 
 	@Override //개인정보 삭제
 	public int memberDelete(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(NAMESPACE+"memberDelete", memberVO);
 	}
 
 	@Override	

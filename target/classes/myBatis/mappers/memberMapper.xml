@@ -22,5 +22,19 @@
     
     </select>
     
+    <!--정보 삭제  -->
+    <delete id="memberDelete" parameterType="MemberVO">
+    		delete member where id=#{id}
+    
+    </delete>
+    
+    <!--회원정보 수정 -->
+    <update id="memberUpdate" parameterType="MemberVO">
+			update member set 
+			pw=#{pw}, name=#{name}, email=#{email}, birth=
+			(select TO_CHAR(#{birth}), 'YYYYMMDD') from member, gender=#{gender}, point=0
+			where id=#{id} 
+		</update>
+    
     
     </mapper>
