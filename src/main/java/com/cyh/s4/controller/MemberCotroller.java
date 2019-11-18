@@ -78,7 +78,7 @@ public class MemberCotroller {
 	}
 	
 	
-	
+	//JOIN
 	@GetMapping(value = "memberJoin")
 	public void memberJoin() throws Exception{
 		
@@ -104,6 +104,9 @@ public class MemberCotroller {
 	
 	return mv;
 	}
+	
+	
+	//idcheck
 	@GetMapping(value = "memberIdCheck")
 	public void memberIdCheck(MemberVO memberVO , Model model)throws Exception{
 	
@@ -120,6 +123,7 @@ public class MemberCotroller {
 		
 	}
 	
+	//memberLOGIN
 	@GetMapping(value = "memberLogin")
 	public void memberLogin()throws Exception {
 		
@@ -160,6 +164,7 @@ public class MemberCotroller {
 
 	}
 	
+	//LOGOUT
 	@GetMapping(value = "memberLogout")
 	public String memberLogout(HttpSession session) throws Exception{
 				// 1번째 : session의 속성을 없애는 방법
