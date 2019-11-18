@@ -10,6 +10,11 @@
 	<h1>Hello world!</h1>
 
 	<P>The time on the server is ${serverTime}.</P>
+	
+	<div id="noticeResult">
+		
+	
+	</div>
 
 	<div id="select ">
 		<select>
@@ -73,8 +78,6 @@
 		
 	}
 		
-		
-	
 	});
 	
 	
@@ -122,6 +125,15 @@
 	});
 
 
+	//noticeResult예제 noticelist에 있는 최신글 5개를 가져오라.
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
 
 </body>

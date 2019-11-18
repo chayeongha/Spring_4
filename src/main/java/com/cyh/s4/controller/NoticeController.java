@@ -20,6 +20,16 @@ public class NoticeController {
 	@Inject
 	private BoardNoticeService boardNoticeService;
 	
+	
+	
+	public void noticeResult() {
+		
+	}
+	
+	
+	
+	
+	
 	@RequestMapping(value = "noticeSelect" , method = RequestMethod.GET)
 	public ModelAndView boardSelect(BoardVO boardVO)throws Exception {
 		
@@ -36,6 +46,11 @@ public class NoticeController {
 		return mv;
 		
 	}
+	
+	
+	
+	
+	
 	
 	
 	
