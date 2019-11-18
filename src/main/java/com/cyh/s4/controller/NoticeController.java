@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,12 +22,19 @@ public class NoticeController {
 	@Inject
 	private BoardNoticeService boardNoticeService;
 	
-	
-	
-	public void noticeResult() {
+	//ajax예제
+	@GetMapping(value = "noticeResult")
+	public String noticeResult(Pager pager , Model model)throws Exception {
 		
-	}
+	pager.setPerPage(5);
+		
+	List<BoardVO>ar= boardNoticeService.boardList(pager);
+	System.out.println(ar.size());
 	
+	model.addAttribute("list", ar);
+	
+	return "board/noticeResult";
+	}
 	
 	
 	

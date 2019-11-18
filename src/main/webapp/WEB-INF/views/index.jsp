@@ -11,10 +11,14 @@
 
 	<P>The time on the server is ${serverTime}.</P>
 	
+	
 	<div id="noticeResult">
 		
 	
+
 	</div>
+
+
 
 	<div id="select ">
 		<select>
@@ -44,7 +48,7 @@
 	
 	</div>
 	
-	<!--AJAX 자바스크립트방식  -->
+	<!------------------------------ AJAX 자바스크립트방식 ----------------------- -->
 	<script type="text/javascript">
 	
 	$("#select").change(function() {
@@ -60,7 +64,7 @@
 			}
 
 	//2. 요청정보 작성
-		xmlhttp.open("GET" , "./selectAnimal?kind="+$("select").val);//메서드 형식
+		xmlhttp.open("GET","./selectAnimal?kind="+$("select").val);//메서드 형식
 		
 	//3. 요청 전송. 겟방식은 매개변수 없이
 		//get
@@ -70,7 +74,7 @@
 		//xmlhttp.send("파라미터이름 = 파라미터값 && 파라미터이름2 = 파라미터값2 ");
 	
 	//4. 결과 처리
-		xmlhttp.onreadyStatechange=function(){
+		xmlhttp.onreadystatechange=function(){
 		if(this.readyState ==4 && this.status == 200){
 			$("#kind").html(this.responseText)
 			
@@ -79,6 +83,8 @@
 	}
 		
 	});
+	
+/*--------------------------------------------------------------------------------------------  */
 	
 	
 	//btn
@@ -125,9 +131,34 @@
 	});
 
 
+	/*--------------------------------------------------------------------------------------------  */
+	
 	//noticeResult예제 noticelist에 있는 최신글 5개를 가져오라.
 	
+	//1. XMLHttpRequest 객체생성
+	var xmlhttp;
 	
+	if (window.XMLHttpRequest) {
+		   xmlhttp = new XMLHttpRequest();
+		 } else {
+		   xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+	
+	//2. 요청정보 작성 데이터는 가져오기만하면됨으로 파라미터를 사용할필요없다.
+	xmlhttp.open("GET" , "./notice/noticeResult");//메서드 형식
+	
+	//3. 요청 전송. 겟방식은 매개변수 없이
+	//GET
+	xmlhttp.send();
+
+	//4. 결과 처리
+	xmlhttp.onreadystatechange=function(){
+	if(this.readyState ==4 && this.status == 200){
+		$("#noticeResult").html(this.responseText)
+			
+		}
+		
+	}
 	
 	
 	
