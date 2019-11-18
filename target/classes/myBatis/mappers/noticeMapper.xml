@@ -9,7 +9,7 @@
   <!--  -->
 <sql id="bs">
 	
-	<choose>
+		<choose>
 				<when test="kind == 'kt'">
 					where title like '%'||#{search}||'%'
 				</when>
@@ -77,12 +77,6 @@
 		#{writer}, #{contents} , sysdate , 0)
   
   </insert>
-  
-  
-  <!--ajax 예제   -->
-  
-  
-  
   
   
   

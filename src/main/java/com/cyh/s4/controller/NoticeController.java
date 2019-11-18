@@ -26,7 +26,7 @@ public class NoticeController {
 	@GetMapping(value = "noticeResult")
 	public String noticeResult(Pager pager , Model model)throws Exception {
 		
-	pager.setPerPage(5);
+	pager.setPerPage(5);//원래 10이엇는데 5개만받기위해서 5로 셋팅해줌.
 		
 	List<BoardVO>ar= boardNoticeService.boardList(pager);
 	System.out.println(ar.size());
