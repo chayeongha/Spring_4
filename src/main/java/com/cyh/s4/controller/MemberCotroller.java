@@ -107,19 +107,19 @@ public class MemberCotroller {
 	
 	
 	//idcheck
-	@GetMapping(value = "memberIdCheck")
+	@PostMapping(value = "memberIdCheck")
 	public void memberIdCheck(MemberVO memberVO , Model model)throws Exception{
 	
-				memberVO	  =memberServiceImpl.memberIdCheck(memberVO); 
+			memberVO	  =memberServiceImpl.memberIdCheck(memberVO); 
 			
-			String msg="중복된 아이디입니다.";
+			String result="unpass";
 		
 			if(memberVO==null) {
 				//사용 가능
-				msg="사용가능한아이디입니다.";
+				result="pass";
 			}
-			model.addAttribute("msg" ,msg);
-			model.addAttribute("dto" , memberVO);
+			
+			model.addAttribute("result" , result);
 		
 	}
 	

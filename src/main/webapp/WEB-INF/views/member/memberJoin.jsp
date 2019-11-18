@@ -16,82 +16,96 @@
 
 	<form action="./memberJoin" method="post">
 		<!-- 아이디 -->
-
-
-
 		<div class="form-group">
-			<label for="id">아이디</label> 
-			<input type="text" class="form-control" id="id" name="id" placeholder="ID" required="required"> 
-				<input type="button"  class="btn btn-primary px-3" value="중복확인"  id="checkId">
+			<label for="id">아이디</label>
+			<input type="text" class="form-control"id="id" name="id" placeholder="ID" required="required">
+			<div id="checkIdResult"></div>
 		</div>
 
-
+		<div class="checkId"></div>
 
 		<!-- 비밀번호 -->
 		<div class="form-group">
 			<label for="user_pw">비밀번호</label> 
-			<input type="password"
-				class="form-control" id="pw" name="pw" placeholder="PASSWORD"
-				required="required">
-
+			<input type="password"class="form-control" id="pw" name="pw" placeholder="PASSWORD"required="required">
 		</div>
 
 		<!-- 이름 -->
 		<div class="form-group">
-			<label for="user_name">이름</label> 
-			<input type="text"
-				class="form-control" id="name" name="name" placeholder="Name"
-				required="required">
+			<label for="user_name">이름</label>
+			 <input type="text"class="form-control" id="name" name="name" placeholder="Name" required="required">
 		</div>
 
 		<!-- 생년월일 -->
 		<div class="form-group required">
 			<label for="user_birth">생년월일</label> 
-			<input type="text"
-				class="form-control" id="birth" name="birth"
-				placeholder="ex) 19990415" required="required">
+			<input type="text"class="form-control" id="birth" name="birth" placeholder="ex) 19990415" required="required">
 		</div>
 
 		<!-- 이메일 -->
 		<div class="form-group">
 			<label for="user_email">이메일</label> 
-			<input type="email"
-				class="form-control" name="email" id="email" placeholder="E-mail">
+			<input type="email" class="form-control" name="email" id="email" placeholder="E-mail">
 		</div>
 
 		<!-- 성 -->
 		<div class="form-group">
 			<label for="user_gender">성별</label>
-			<!-- 				<input type="text" -->
-			<!-- 					class="form-control" name="gender" id="gender"placeholder="ex)남자 m,M  여자 f,F"> -->
-			<label><input type="checkbox" name="gender" value="F">여성</label> 
+			<label><input type="checkbox" name="gender" value="F">여성</label>
 			<label><input type="checkbox" name="gender" value="M">남성</label>
 		</div>
 
-
+		<!--join 버튼을 눌렀을 때 중복확인을해 -->
 		<div class="reg_button">
-			<button class="btn btn-primary px-3" type="submit">가입하기</button>
+			<input class="btn btn-primary px-3" type="button" id="join" value="Join">
 		</div>
-
 
 	</form>
 
+
+
 <script type="text/javascript">
 
-	//$(선택자).action();
-	//호출 하는데 2가지방법
-		
-	$("#checkId").click(function() {
-		
-	       window.open("./memberIdCheck?id="+$("#id").val(),"","width=1000,height=400,left=400,top=200");
-			
-	       
-	       
-	});//callback함수
+//전역변수선언
+var idCheck=false;// false: 중복된id , 또는 중복 검사를 하지않은 경우
+						   // true : 중복되지 않은 id;
 	
+$("#id").blur(function(){
+
+	var id = $(this).val();
 	
+		$.post("./memberIdCheck",{id:id}, function(data) {
+		data= data.trim();
+		
+		if(data=='pass'){
+			 $("#checkIdResult").html('사용가능한 ID');
+			 $("#checkIdResult").attr("class","text-success" );
+			 idCheck=true;
+		}else{
+			$("#checkIdResult").html('중복된 ID');
+			$("#checkIdResult").attr("class","text-danger" );
+			idCheck=false;
+ 			$("#id").val("");
+			$("#id").focus();
+		}
+		
+	});
+
+});
+
+	
+$("#join").click(function() {
+	
+	alert(idCheck);
+	
+});
 
 </script>
+ 
+
+	
+
+
 
 </body>
 </html>
