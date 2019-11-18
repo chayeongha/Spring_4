@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,14 +40,36 @@ public class HomeController {
 	}
 	
 	
-	////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
+	//ajax 예제
 	
-	@GetMapping(value = "/testAjax")
-	public void testAjax() throws Exception{
+	@PostMapping(value = "/testAjax")
+	public void testAjax(Model model , int num) throws Exception{
 		Random r = new Random();
-		int num= r.nextInt(); 
+		num= r.nextInt(num); 
+		model.addAttribute("num" , num);
+	}
+	
+	
+	@GetMapping(value = "/selectAnimal")
+	public void selectAnimal(String kind ,Model model) throws Exception{
+		
+		if(kind.equals("d")) {
+			String[]kinds=  {"chiwawa","puddle","martiz"};
+			model.addAttribute("kind", kinds);
+			
+		}else if(kind.equals("c")) {
+			String[]kinds=  {"shortCutcat","sham","persian"};
+			model.addAttribute("kind", kinds);
+			
+		}else {
+			String[]kinds=  {"bidulgi","cham","ddak"};
+			model.addAttribute("kind", kinds);
+		}
 		
 	}
+	
+	
 	
 	
 }
