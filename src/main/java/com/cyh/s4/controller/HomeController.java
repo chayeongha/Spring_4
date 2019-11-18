@@ -51,22 +51,18 @@ public class HomeController {
 	}
 	
 	
-	@GetMapping(value = "/selectAnimal")
-	public void selectAnimal(String kind ,Model model) throws Exception{
-		
+	@GetMapping("/selectAnimal")
+	public void selectAnimal(Model model, String kind) throws Exception {
 		if(kind.equals("d")) {
-			String[]kinds=  {"chiwawa","puddle","martiz"};
+			String [] kinds = {"치와와", "푸들", "말티즈"};
 			model.addAttribute("kind", kinds);
-			
 		}else if(kind.equals("c")) {
-			String[]kinds=  {"shortCutcat","sham","persian"};
+			String [] kinds = {"숏컷", "샴", "페르시안"};
 			model.addAttribute("kind", kinds);
-			
 		}else {
-			String[]kinds=  {"bidulgi","cham","ddak"};
+			String [] kinds = {"참새", "앵무새", "비둘기"};
 			model.addAttribute("kind", kinds);
 		}
-		
 	}
 	
 	

@@ -10,78 +10,65 @@
 	<h1>Hello world!</h1>
 
 	<P>The time on the server is ${serverTime}.</P>
-	
-	
+
+
 	<div id="noticeResult">
 		
-	
-
 	</div>
-
-
-
-	<div id="select ">
-		<select>
+	
+	<div>
+		<select id="animal">
 			<option value="d">Dog</option>
 			<option value="c">Cat</option>
 			<option value="b">Bird</option>
 		</select>
 		
 		<div id="kind">
-				<select >
-					<option>chiwawa</option>
-					<option>puddle</option>
-					<option>martiz</option>
-				</select>
+			<select>
+				<option>치와와</option>
+				<option>푸들</option>
+				<option>말티즈</option>
+			</select>
 		</div>
-		
 	</div>
-
-
+	
 	<div>
 		<input type="text" id="num">
-		<button id="btn">click</button>
+		<button id="btn">Number</button>
 	</div>
+	
+	<div id="result"></div>
 
-	<div id="result">
-	
-	
-	</div>
-	
+
 	<!------------------------------ AJAX 자바스크립트방식 ----------------------- -->
 	<script type="text/javascript">
 	
-	$("#select").change(function() {
-	
-	//select 
-	//1. XMLHttpRequest 객체생성
-	 var xmlhttp;
-		
-			if (XMLHttpRequest) {
-			   xmlhttp = new XMLHttpRequest();
-			 } else {
-			   xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-
-	//2. 요청정보 작성
-		xmlhttp.open("GET","./selectAnimal?kind="+$("select").val);//메서드 형식
-		
-	//3. 요청 전송. 겟방식은 매개변수 없이
-		//get
-		xmlhttp.send();
-		//post
-		//xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		//xmlhttp.send("파라미터이름 = 파라미터값 && 파라미터이름2 = 파라미터값2 ");
-	
-	//4. 결과 처리
-		xmlhttp.onreadystatechange=function(){
-		if(this.readyState ==4 && this.status == 200){
-			$("#kind").html(this.responseText)
-			
+	$('#animal').change(function() {
+		//1. XMLHttpRequest 객체 생성
+		var xmlhttp;
+		if(window.XMLHttpRequest){
+			xmlhttp = new XMLHttpRequest();
+		}else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
 		}
 		
-	}
+		//2. 요청 정보 작성		
+		xmlhttp.open("GET", "./selectAnimal?kind="+$('#animal').val());
 		
+		//3. 요청 전송
+		//GET
+		xmlhttp.send();
+		
+		//POST
+		//xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		//xmlhttp.send("파라미터이름=파라미터값&파라미터이름2=파라미터값2");
+		
+		//4. 결과 처리
+		xmlhttp.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200){
+				$('#kind').html(this.responseText);
+			}
+		}
 	});
 	
 /*--------------------------------------------------------------------------------------------  */
