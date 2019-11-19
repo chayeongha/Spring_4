@@ -39,11 +39,11 @@ public class EncodingFilter implements Filter {
 		// request 발생시 실행하는 구간.
 		request.setCharacterEncoding(this.encode);
 		response.setCharacterEncoding(this.encode);
-		System.out.println("FILTER IN");
+		//System.out.println("FILTER IN");
 		
 		chain.doFilter(request, response);
 		
-		System.out.println("FILTER OUT");
+		//System.out.println("FILTER OUT");
 		//response 발생시 실행하는 구간.
 	}
 

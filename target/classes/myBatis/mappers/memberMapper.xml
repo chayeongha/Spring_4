@@ -5,8 +5,8 @@
   
     <mapper namespace="memberMapper">
        <insert id="memberJoin" parameterType="MemberVO">
-          insert into member(id, pw, name, email, birth, gender)
-         values(#{id}, #{pw}, #{name}, #{email}, #{birth}, #{gender})
+          insert into member(id, pw, name, email, birth, gender, fileName, originalName)
+         values(#{id}, #{pw}, #{name}, #{email}, #{birth}, #{gender} ,#{fileName} ,#{originalName})
        </insert>
     
     
@@ -17,7 +17,7 @@
     </select>
     
     <select id="memberLogin" parameterType="MemberVO" resultType="MemberVO">
-    		select id, name , email, to_char(birth, 'yyyy-mm-dd') as birth, gender  from member where id=#{id} and pw=#{pw}
+    		select id, name , email, to_char(birth, 'yyyy-mm-dd') as birth, gender, fileName, originalName  from member where id=#{id} and pw=#{pw}
     
     
     </select>

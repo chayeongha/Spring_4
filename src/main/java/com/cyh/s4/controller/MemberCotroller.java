@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cyh.s4.model.MemberVO;
@@ -18,19 +19,19 @@ import com.cyh.s4.service.MemberServiceImpl;
 @Controller
 @RequestMapping("/member/**")
 public class MemberCotroller {
-	
+
 	@Inject
 	private MemberServiceImpl memberServiceImpl;
-	
-	
+
+
 	//MemberDelete
 	@GetMapping(value = "memberDelete")
 	public ModelAndView memberDelete(MemberVO memberVO,HttpSession session )throws Exception{
-		
+
 		int result = memberServiceImpl.memberDelete(memberVO);
-		
+
 		ModelAndView mv = new ModelAndView();
-		
+
 		if(result==1) {
 			session.removeAttribute("member");
 			mv.addObject("msg", "Delete Success");
@@ -42,24 +43,24 @@ public class MemberCotroller {
 			mv.setViewName("common/common_result");
 		}
 		return mv;
-		
-			
+
+
 	}
-	
+
 	//MemberUpdate-GETMETHOD
 	@GetMapping(value = "memberUpdate")
 	public void memberUpdate() throws Exception {
-		
+
 	}
-	
+
 	//MemberUpdate-POSTMETHOD
 	@PostMapping(value = "memberUpdate")
 	public ModelAndView memberUpdate(MemberVO memberVO, HttpSession session)throws Exception{
-		
+
 		int result = memberServiceImpl.memberUpdate(memberVO);
-		
+
 		ModelAndView mv = new ModelAndView();
-		
+
 		if(result==1) {
 			session.setAttribute("member", memberVO);
 			mv.setViewName("redirect:./memberMypage");
@@ -70,115 +71,117 @@ public class MemberCotroller {
 		}
 		return mv;
 	}
-	
-	
+
+
 	//MYpage
 	@GetMapping(value = "memberMypage")
 	public void memberMypage() throws Exception {
 	}
-	
-	
+
+
+
 	//JOIN
 	@GetMapping(value = "memberJoin")
 	public void memberJoin() throws Exception{
-		
-		
-	}
-	
-	@PostMapping(value = "memberJoin")
-	public ModelAndView memberJoin(MemberVO memberVO)throws Exception {
 
-	int result = memberServiceImpl.memberJoin(memberVO);
-	
-	ModelAndView mv = new ModelAndView();
-	
-	String msg ="회원가입 실패";
-	if(result==1) {
-			msg="성공"	;
+	}
+
+	@PostMapping(value = "memberJoin")
+	public ModelAndView memberJoin(MemberVO memberVO ,HttpSession session , HttpServletRequest request)throws Exception {
+
+
+
+		ModelAndView mv = new ModelAndView();
+
+		int result = memberServiceImpl.memberJoin(memberVO ,session);
+
+		String msg ="회원가입 실패";
+		if(result==1) {
 			mv.setViewName("redirect:../");
+			msg="회원가입성공";
+		}
+
+		mv.addObject("msg" , msg);
+		mv.addObject("path", "../");
+		mv.setViewName("common/common_result");
+
+		return mv;
 	}
-	
-	mv.addObject("msg" , msg);
-	mv.addObject("path", "../");
-	mv.setViewName("common/common_result");
-	
-	return mv;
-	}
-	
-	
+
+
 	//idcheck
 	@PostMapping(value = "memberIdCheck")
 	public void memberIdCheck(MemberVO memberVO , Model model)throws Exception{
-	
-			memberVO	  =memberServiceImpl.memberIdCheck(memberVO); 
-			
-			String result="unpass";
-		
-			if(memberVO==null) {
-				//사용 가능
-				result="pass";
-			}
-			
-			model.addAttribute("result" , result);
-		
+
+		memberVO	  =memberServiceImpl.memberIdCheck(memberVO); 
+
+		String result="unpass";
+
+		if(memberVO==null) {
+			//사용 가능
+			result="pass";
+		}
+
+		model.addAttribute("result" , result);
+
 	}
-	
+
 	//memberLOGIN
 	@GetMapping(value = "memberLogin")
 	public void memberLogin()throws Exception {
-		
-	}
-	
 
-	
-	
+	}
+
+
+
+
 	@PostMapping(value = "memberLogin")
 	public ModelAndView memberLogin(MemberVO memberVO ,HttpSession session) throws Exception{
-		
-	memberVO = memberServiceImpl.memberLogin(memberVO);
-		
-	ModelAndView mv= new ModelAndView();
-	
-	String msg= "실패";
-	if(memberVO != null) {
-		
+
+		memberVO = memberServiceImpl.memberLogin(memberVO);
+
+		ModelAndView mv= new ModelAndView();
+
+		String msg= "실패";
+		if(memberVO != null) {
+
+			session.setAttribute("member", memberVO);
+			mv.setViewName("redirect:../");
+
+		}else {
+
+			mv.addObject("msg" , msg);
+			mv.addObject("path", "../");
+			mv.setViewName("common/common_result");
+		}
+		return mv;
+
+		//, HttpSession session
+
+		/*if(memberVO != null) {
+
 		session.setAttribute("member", memberVO);
-		mv.setViewName("redirect:../");
-		
-	}else {
-	
-	mv.addObject("msg" , msg);
-	mv.addObject("path", "../");
-	mv.setViewName("common/common_result");
-	}
-	return mv;
-	
-	//, HttpSession session
-	
-	/*if(memberVO != null) {
-		
-		session.setAttribute("member", memberVO);
-		
+
 	}*/
-		
+
 
 	}
-	
+
 	//LOGOUT
 	@GetMapping(value = "memberLogout")
 	public String memberLogout(HttpSession session) throws Exception{
-				// 1번째 : session의 속성을 없애는 방법
-				session.removeAttribute("member");
-				
-				// 2번째 : session의 시간을 초기화 즉, 0으로 만드는 방법.
-				// httpSession.invalidate();
-				
-				return "redirect:../";
-		
-	}
-	
+		// 1번째 : session의 속성을 없애는 방법
+		session.removeAttribute("member");
 
-	
-	
-	
+		// 2번째 : session의 시간을 초기화 즉, 0으로 만드는 방법.
+		// httpSession.invalidate();
+
+		return "redirect:../";
+
+	}
+
+
+
+
+
 }

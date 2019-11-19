@@ -13,8 +13,8 @@
 
 	<h1>Member Join Page1</h1>
 
-
-	<form action="./memberJoin" method="post">
+<div class="container">
+	<form action="./memberJoin" method="post" id="frm"  enctype="multipart/form-data">
 		<!-- 아이디 -->
 		<div class="form-group">
 			<label for="id">아이디</label>
@@ -55,20 +55,36 @@
 			<label><input type="checkbox" name="gender" value="M">남성</label>
 		</div>
 
-		<!--join 버튼을 눌렀을 때 중복확인을해 -->
-		<div class="reg_button">
-			<input class="btn btn-primary px-3" type="button" id="join" value="Join">
+		<!-- 파일 -->
+		<div class="form-group">
+			<label for="file">파일</label> 
+			<input type="file" class="form-control" name="file" id="file" required="required" >
 		</div>
+
+		<!--join 버튼을 눌렀을 때 중복확인을해 -->
+			<input class="btn btn-primary px-3" type="button" id="join" value="Join">
+	
 
 	</form>
 
-
+</div>
 
 <script type="text/javascript">
 
 //전역변수선언
 var idCheck=false;// false: 중복된id , 또는 중복 검사를 하지않은 경우
 						   // true : 중복되지 않은 id;
+	
+$("#join").click(function() {
+	
+	if(idCheck){
+		$("#frm").submit();
+	}else{
+		$("#frm").reset();
+	}
+	
+});	
+	
 	
 $("#id").blur(function(){
 
@@ -94,11 +110,7 @@ $("#id").blur(function(){
 });
 
 	
-$("#join").click(function() {
-	
-	alert(idCheck);
-	
-});
+
 
 </script>
  

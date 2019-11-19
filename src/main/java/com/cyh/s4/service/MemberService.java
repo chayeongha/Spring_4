@@ -1,11 +1,13 @@
 package com.cyh.s4.service;
 
+import javax.servlet.http.HttpSession;
+
 import com.cyh.s4.model.MemberVO;
 
 public interface MemberService {
 	
 		//JOIN
-		public int memberJoin(MemberVO memberVO)throws Exception;	
+		public int memberJoin(MemberVO memberVO , HttpSession session)throws Exception;	
 		
 		//LOGIN
 		public MemberVO memberLogin(MemberVO memberVO)throws Exception;
