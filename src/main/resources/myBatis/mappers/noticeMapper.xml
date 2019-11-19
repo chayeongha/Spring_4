@@ -35,7 +35,7 @@
   <!--boardUpdate  -->
   
   <update id="boardUpdate" parameterType="NoticeVO">
-  update notice set title=#{title},writer=#{writer} , contents=#{contents} 
+  update notice set title=#{title},writer=#{writer} , contents=#{contents} , #{fileName} , #{originalName}
   where num=#{num}
   
    </update>
@@ -74,7 +74,7 @@
   		
   		insert into notice
 		values(board_seq.nextval, #{title},
-		#{writer}, #{contents} , sysdate , 0)
+		#{writer}, #{contents} , sysdate , 0 , #{fileName},#{originalName})
   
   </insert>
   
