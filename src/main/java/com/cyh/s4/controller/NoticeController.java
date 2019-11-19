@@ -3,6 +3,7 @@ package com.cyh.s4.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,9 +70,9 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value = "noticeWrite" , method = RequestMethod.POST)
-	public ModelAndView boardWrite(BoardVO boardVO) throws Exception{
+	public ModelAndView boardWrite(BoardVO boardVO , HttpSession session) throws Exception{
 		
-		int result =boardNoticeService.boardWrite(boardVO);
+		int result =boardNoticeService.boardWrite(boardVO, session);
 		
 		ModelAndView  mv = new ModelAndView();
 		
