@@ -44,6 +44,7 @@ public class NoticeController {
 	public ModelAndView boardList(Pager pager) throws Exception{
 		
 		List<BoardVO> ar= boardNoticeService.boardList(pager);
+		System.out.println("??????? : "+ar);
 		ModelAndView mv =new ModelAndView();
 		
 		mv.addObject("list", ar);

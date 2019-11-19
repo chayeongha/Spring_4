@@ -2,6 +2,9 @@ package com.cyh.s4.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -9,6 +12,7 @@ import org.junit.Test;
 import com.cyh.s4.TestAbstractCase;
 import com.cyh.s4.model.BoardNoticeVO;
 import com.cyh.s4.model.BoardVO;
+import com.cyh.s4.util.Pager;
 
 public class BoardNoticeDAOTest extends TestAbstractCase {
 
@@ -44,8 +48,15 @@ public class BoardNoticeDAOTest extends TestAbstractCase {
 		
 	}
 	
-	
-	
+	@Test
+	public void noticeList() throws Exception{
+		BoardVO boardVO = new BoardVO();
+		Pager pager = new Pager();
+		List<BoardVO> ar = new ArrayList<BoardVO>();
+		
+		ar = boardNoticeDAO.boardList(pager);
+		assertNotNull(ar);
+	}
 	
 	
 }

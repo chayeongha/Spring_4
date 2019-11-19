@@ -2,6 +2,8 @@ package com.cyh.s4.model;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BoardVO {
 	
 	private int num;
@@ -10,9 +12,17 @@ public class BoardVO {
 	private String contents;
 	private Date reg_date;
 	private int hit;
-	
 	private String fileName;
 	private String originalName;
+	
+	private MultipartFile file;
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	
 	
 	public String getFileName() {

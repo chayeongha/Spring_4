@@ -29,7 +29,7 @@
 	    </thead>
 	    <tbody>
 	    
-	    	<c:forEach items="${list}" 	 varStatus="st">
+	    	<c:forEach items="${list }" 	 var="dto" varStatus="st">
 		      <tr>
 		        <td>${dto.num}</td>
 		        <td>

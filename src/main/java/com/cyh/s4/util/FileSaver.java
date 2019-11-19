@@ -25,7 +25,6 @@ public class FileSaver {
 			}
 			//
 			
-			
 			//저장될 파일명은 중복이 되면안됨(가입하는유저를 이걸로 구분하기때분)
 			//STRING타입이필요함으로 스트링타입으로 변경
 			String fileName =UUID.randomUUID().toString();
@@ -49,7 +48,7 @@ public class FileSaver {
 	
 	
 		//2. MultipartFile transferTo  메서드사용
-		public String save2 (String realPath, MultipartFile  multipartFile)throws Exception{
+		public String save (String realPath, MultipartFile  multipartFile)throws Exception{
 			//*공통적으로 쓰임.
 			File file = new File(realPath);
 			//System.out.println(file.exists());//파일이존재합니까? 트루면 존재 펄스면 존재x
@@ -82,7 +81,7 @@ public class FileSaver {
 	
 		//1. Spring에서 제공하는 fileCopyUtils  클래스의 copy메서드 사용
 		//메서드만들어서저장
-		public String save (MultipartFile  multipartFile , String realPath)throws Exception {
+		public String save2(String realPath, MultipartFile  multipartFile)throws Exception {
 			File file = new File(realPath);
 			//System.out.println(file.exists());//파일이존재합니까? 트루면 존재 펄스면 존재x
 			

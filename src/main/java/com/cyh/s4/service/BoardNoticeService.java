@@ -38,31 +38,27 @@ public class BoardNoticeService implements BoardService {
 	public int boardWrite(BoardVO boardVO , HttpSession session) throws Exception {
 		
 		//1. 파일을 저장할 실제경로
-		String realPath = session.getServletContext().getRealPath("classes/resources/upload/board");
+		String realPath = session.getServletContext().getRealPath("resources/upload/member");
 		
-		
-		
+
 		File file = new File(realPath);
-		if(!file.exists()) {
-			
-			file.mkdirs();
-		}
 		
+	
 		//System.out.println(file.exists());//파일이 존재합니까? true
 		//System.out.println(file.isDirectory()); //폴더가 존재합니까? 트루면 존재 펄스면 존재x  true
 		
 		FileSaver fs= new FileSaver();
 		
-		//String fileName = fs.save(realPath, boardVO.getFileName());
+		String fileName=fs.save(realPath, boardVO.getFile());
 		
-		//boardVO.setFileName(fileName);
-		//boardVO.setOriginalName(boardVO.get);
-		
-		
-		
-		
+		boardVO.setFileName(fileName);	
+		boardVO.setOriginalName(boardVO.getFile().getOriginalFilename());
+		System.out.println(realPath);
+		System.out.println(fileName);
 		
 		return boardNoticeDAO.boardWrite(boardVO);
+		
+	
 	}
 
 	@Override

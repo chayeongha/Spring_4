@@ -32,7 +32,7 @@ public class BoardNoticeDAO implements BoardDAO{
 
 	@Override
 	public int boardWrite(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.insert(NAMESPACE+"boardWrite", boardVO);
 	}
 
