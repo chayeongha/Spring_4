@@ -53,10 +53,10 @@ public class BoardNoticeService implements BoardService {
 		
 		FileSaver fs= new FileSaver();
 		
-		String fileName = fs.save(realPath, boardVO.getFileName());
+		//String fileName = fs.save(realPath, boardVO.getFileName());
 		
-		boardVO.setFileName(fileName);
-		boardVO.setOriginalName(boardVO.get);
+		//boardVO.setFileName(fileName);
+		//boardVO.setOriginalName(boardVO.get);
 		
 		
 		
