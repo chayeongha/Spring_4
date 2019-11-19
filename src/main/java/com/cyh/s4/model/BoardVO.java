@@ -10,6 +10,23 @@ public class BoardVO {
 	private String contents;
 	private Date reg_date;
 	private int hit;
+	
+	private String fileName;
+	private String originalName;
+	
+	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getOriginalName() {
+		return originalName;
+	}
+	public void setOriginalName(String originalName) {
+		this.originalName = originalName;
+	}
 	public int getNum() {
 		return num;
 	}
