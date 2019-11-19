@@ -75,6 +75,9 @@ public class BoardQnaService implements BoardService {
 	@Override
 	public int boardWrite(BoardVO boardVO, HttpSession session) throws Exception {
 
+		
+		
+		
 		return boardQnaDAO.boardWrite(boardVO);
 	}
 

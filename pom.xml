@@ -36,7 +36,6 @@
 		</dependency>
 
 
-
 		<!-- mybatis -->
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<dependency>
@@ -67,11 +66,6 @@
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.3</version>
 		</dependency>
-
-
-
-
-
 
 
 		<!-- Spring -->
