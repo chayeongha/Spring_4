@@ -81,10 +81,30 @@
 
 	<!--boardSelect -->
 	<select id="boardSelect" parameterType="QnaVO"
-		resultType="QnaVO">
-		select *from qna where num=#{num}
-
+		resultMap="boardFile">
+		select N.*, F.fnum,F.fname, F.oname
+           from qna N full outer join qnafiles F 
+           on N.num =F.num
+            WHERE N.num=#{num}
+            
 	</select>
+	
+	<resultMap type="QnaVO" id="boardFile">
+		
+		<id property="num" column="num" />
+		<result property="title" column="title"/>
+		<result property="writer" column="writer"/>
+		<result property="contents" column="contents"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="hit" column="hit"/>
+		
+		<collection property="files" javaType="java.util.List" ofType="QnaFilesVO">
+			<id property="fnum" column="fnum"/>
+			<result property="fname" column="fname"/>
+			<result property="oname" column="oname"/>
+		</collection>
+	
+	</resultMap>
 
 	<!--boardUpdate -->
 	<update id="boardUpdate" parameterType="QnaVO">

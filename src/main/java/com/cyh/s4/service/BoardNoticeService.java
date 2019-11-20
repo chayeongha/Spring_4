@@ -43,15 +43,15 @@ public class BoardNoticeService implements BoardService {
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
 		
 		//리턴은 한개보내야되는데 보내야될게 2개가됨.
-		boardVO=boardNoticeDAO.boardSelect(boardVO);
+		//boardVO=boardNoticeDAO.boardSelect(boardVO);
 		
-		BoardNoticeVO boardNoticeVO = (BoardNoticeVO)boardVO;
+		//BoardNoticeVO boardNoticeVO = (BoardNoticeVO)boardVO;
 		
-		List<NoticeFilesVO> ar= noticeFilesDAO.fileList(boardVO.getNum()); 
+		//List<NoticeFilesVO> ar= noticeFilesDAO.fileList(boardVO.getNum()); 
 		
-		boardNoticeVO.setFiles(ar);
+		//boardNoticeVO.setFiles(ar);
 		
-		return boardNoticeVO;
+		return boardNoticeDAO.boardSelect(boardVO);
 		
 		
 		
