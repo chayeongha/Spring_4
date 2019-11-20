@@ -13,6 +13,10 @@
   	
   	</insert>
   
+  	<select id="fileList" parameterType="java.lang.Integer" resultType="NoticeFilesVO">
+  		select * from noticeFiles where num=#{num}
+  	
+  	</select>
   
   
   

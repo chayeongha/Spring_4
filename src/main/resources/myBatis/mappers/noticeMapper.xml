@@ -70,9 +70,13 @@
 		where R between #{startRow} and #{lastRow}
  	 	</select>
   
-  	<insert id="boardWrite" parameterType="NoticeVO">
+  	<insert id="boardWrite" parameterType="BoardVO">
+ 	 		<selectKey order="BEFORE" resultType="java.lang.Integer" keyProperty="num">
+ 	 			select board_seq.nextval from dual
+ 	 		</selectKey>
+ 	 		
  	 		insert into notice 
- 	 		values(board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0 , #{fileName},#{originalName})
+ 	 		values(#{num}, #{title}, #{writer}, #{contents}, sysdate, 0 )
  	 	</insert>
   
   

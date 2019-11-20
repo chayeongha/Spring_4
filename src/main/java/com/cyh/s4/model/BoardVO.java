@@ -18,6 +18,7 @@ public class BoardVO {
 	
 	
 	
+	
 	public String getFileName() {
 		return fileName;
 	}
