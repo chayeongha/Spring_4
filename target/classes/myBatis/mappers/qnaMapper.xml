@@ -68,8 +68,12 @@
 
 	<!--boardWrite -->
 	<insert id="boardWrite" parameterType="BoardVO">
+		<selectKey order="BEFORE" resultType="java.lang.Integer" keyProperty="num">
+ 	 			select board_seq.nextval from dual
+ 	 		</selectKey>
+		
 		insert into qna
-		values(board_seq.nextval, #{title}, #{writer}, #{contents},
+		values(#{num}, #{title}, #{writer}, #{contents},
 		sysdate,0,board_seq.currval,0,0)
 
 	</insert>

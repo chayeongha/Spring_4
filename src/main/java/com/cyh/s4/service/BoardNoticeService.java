@@ -61,7 +61,7 @@ public class BoardNoticeService implements BoardService {
 	public int boardWrite(BoardVO boardVO , MultipartFile [] file , HttpSession session) throws Exception {
 		
 		//1. 파일을 저장할 실제경로
-		String realPath = session.getServletContext().getRealPath("resources/upload/member");
+		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
 		
 		//System.out.println(file.exists());//파일이 존재합니까? true
 		//System.out.println(file.isDirectory()); //폴더가 존재합니까? 트루면 존재 펄스면 존재x  true
@@ -69,7 +69,7 @@ public class BoardNoticeService implements BoardService {
 		int result = boardNoticeDAO.boardWrite(boardVO);
 		
 		noticeFilesVO.setNum(boardVO.getNum());
-		
+		System.out.println(realPath);
 		for(MultipartFile multipartFile:file) {
 			
 			String fileName = fileSaver.save(realPath, multipartFile);

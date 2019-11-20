@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cyh.s4.model.BoardQnaVO;
@@ -86,13 +87,16 @@ public class QnaController {
 
 	//INSERT-POSTMETHOD
 	@RequestMapping(value = "qnaWrite" , method = RequestMethod.POST)
-	public ModelAndView boardWrite(BoardVO boardVO ,HttpSession session)throws Exception {
-
-		int result = boardQnaService.boardWrite(boardVO, session);
+	public ModelAndView boardWrite(BoardVO boardVO ,HttpSession session ,MultipartFile [] file)throws Exception {
 
 		ModelAndView mv = new ModelAndView();
-
-
+		for(int i=0;i<file.length;i++) {
+			
+		System.out.println(file[i].getOriginalFilename());
+			
+		}
+		int result =boardQnaService.boardWrite(boardVO , file , session);
+		
 		if (result==1) {
 			mv.setViewName("redirect:./qnaList");
 

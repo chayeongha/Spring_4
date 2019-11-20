@@ -6,10 +6,15 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cyh.s4.dao.BoardQnaDAO;
+import com.cyh.s4.dao.QnaFilesDAO;
 import com.cyh.s4.model.BoardQnaVO;
 import com.cyh.s4.model.BoardVO;
+import com.cyh.s4.model.NoticeFilesVO;
+import com.cyh.s4.model.QnaFilesVO;
+import com.cyh.s4.util.FileSaver;
 import com.cyh.s4.util.Pager;
 
 @Service
@@ -18,7 +23,12 @@ public class BoardQnaService implements BoardService {
 	@Inject
 	private BoardQnaDAO boardQnaDAO;
 
-
+	@Inject
+	private FileSaver fileSaver;
+	
+	@Inject
+	private QnaFilesDAO qnaFilesDAO;
+	
 	public int boardReply(BoardVO boardVO) throws Exception{
 		
 		BoardQnaVO parent = (BoardQnaVO)boardQnaDAO.boardSelect(boardVO);
@@ -68,17 +78,46 @@ public class BoardQnaService implements BoardService {
 
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
-
-		return boardQnaDAO.boardSelect(boardVO);
+		boardVO=boardQnaDAO.boardSelect(boardVO);
+		
+		BoardQnaVO boardQnaVO = (BoardQnaVO)boardVO;
+		
+		List<QnaFilesVO> ar= qnaFilesDAO.fileList(boardVO.getNum());
+		
+		boardQnaVO.setFiles(ar);
+		
+		return boardQnaVO;
+		
 	}
 
 	@Override
-	public int boardWrite(BoardVO boardVO, HttpSession session) throws Exception {
+	public int boardWrite(BoardVO boardVO , MultipartFile [] file , HttpSession session) throws Exception {
 
+		//1. 파일을 저장할 실제경로
+				String realPath = session.getServletContext().getRealPath("resources/upload/qna");
+				
+				//System.out.println(file.exists());//파일이 존재합니까? true
+				//System.out.println(file.isDirectory()); //폴더가 존재합니까? 트루면 존재 펄스면 존재x  true
+				
+				QnaFilesVO qnaFilesVO = new QnaFilesVO();
+				
+				int result = boardQnaDAO.boardWrite(boardVO);
+				
+				System.out.println(realPath);
+				for(MultipartFile multipartFile:file) {
+					
+					String fileName = fileSaver.save(realPath, multipartFile);
+					qnaFilesVO.setNum(boardVO.getNum());
+					qnaFilesVO.setFname(fileName);
+					qnaFilesVO.setOname(multipartFile.getOriginalFilename());
+					result=qnaFilesDAO.fileWrite(qnaFilesVO);
+					
+		}
 		
+		return result;
 		
+	
 		
-		return boardQnaDAO.boardWrite(boardVO);
 	}
 
 	@Override
@@ -92,5 +131,10 @@ public class BoardQnaService implements BoardService {
 
 		return boardQnaDAO.boardDelete(boardVO);
 	}
+
+
+
+
+	
 
 }
