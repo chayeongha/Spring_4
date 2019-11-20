@@ -11,6 +11,6 @@
         <typeAlias type="com.cyh.s4.model.MemberVO" alias="MemberVO"/>
         <typeAlias type="com.cyh.s4.util.Pager" alias="Pager"/>
         <typeAlias type="com.cyh.s4.model.NoticeFilesVO" alias="NoticeFilesVO"/>
-   		<typeAlias type="java."/>
+   		
      </typeAliases>
   </configuration>
