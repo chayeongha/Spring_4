@@ -32,16 +32,18 @@
 	   		</div>
 			
 			<div id="files">	   		
-		    	<div class="form-group">
+		    	<div class="form-group" title="parent" >
 	      			<label class="control-label col-sm-2" for="file">File:</label>
 	      			<div class="col-sm-9">
-	      				<input type="file" class="form-control" id="file" name="file">
+	      				<input type="file" class="form-control " id="file" name="file">
 	      			</div>
 		    	<div class="col-sm-1">
-	      			<input type="button" class="form-control" name="file" value="del" class= "btn btn-danger del">
+	      			<input type="button"  name="file"  class= "btn btn-danger del" value="delete">
 	   			</div>
 				</div>
 			</div>	   		
+	   		
+	   		
 	   		
 	   		<input type="button" value="add file" class="btn btn-default" id="btn">
 		    
@@ -55,11 +57,9 @@
 			var files = $('#files').html();
 			$('#files').empty();
 			var count = 0;
+			var index = 0;//인덱스번호
 			
-// 			$(".del").click(function() {
-// 				alert("del");	
-// 			});
-			
+
 			$('#btn').click(function() {
 				if(count<5){
 					$('#files').append(files);
@@ -69,12 +69,21 @@
 				}
 			});
 			
-			$(".del").click(function() {
-				alert("del");	
+			$("#files").on("click",".del",function() {
+				
+				
+				//1. 제이쿼리 부모선택자 parent
+				$(this).parent().parent().remove();
+				count--;
+				
+				//2. 모든부모선택자 parents의 속성을 줘서 클래스가 "form-group"인걸 선택하자
+				//$(this).parents(".form-group").remove();
+				
+			
+				
 			});
 			
-			var btn = document.getElementById("btn");
-			var del = document.getElementsByClassName("del");
+			
 		
 		</script>
 
