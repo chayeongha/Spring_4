@@ -30,6 +30,12 @@ public class BoardNoticeService implements BoardService {
 	private NoticeFilesDAO noticeFilesDAO;
 	
 	
+	public int fileDelete(NoticeFilesVO noticeFilesVO)throws Exception {
+		
+		return noticeFilesDAO.fileDelete(noticeFilesVO);
+	}
+	
+	
 	@Override
 	public List<BoardVO> boardList(Pager pager) throws Exception {
 		

@@ -44,7 +44,6 @@
 			</div>	   		
 	   		
 	   		
-	   		
 	   		<input type="button" value="add file" class="btn btn-default" id="btn">
 		    
 		    

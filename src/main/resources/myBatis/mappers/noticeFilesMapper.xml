@@ -6,6 +6,12 @@
   
   <mapper namespace="noticeFilesMapper">
   
+  	<delete id="fileDelete" parameterType="NoticeFilesVO">
+  		delete noticeFiles where fnum=#{fnum}
+  	
+  	</delete>
+ 
+  
   	<insert id="fileWrite" parameterType="NoticeFilesVO">
   			
   		insert into noticeFiles values(file_seq.nextval, #{num}, #{fname},#{oname})
@@ -13,11 +19,14 @@
   	
   	</insert>
   
-  	<!--  -->
+  	
   	<select id="fileList" parameterType="java.lang.Integer" resultType="NoticeFilesVO">
   		select * from noticeFiles where num=#{num}
   	
   	</select>
+  
+  
+  
   
   
   

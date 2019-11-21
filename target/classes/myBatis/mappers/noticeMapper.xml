@@ -61,6 +61,7 @@
 		<result property="contents" column="contents" />
 		<result property="reg_date" column="reg_date" />
 		<result property="hit" column="hit" />
+		
 		<collection property="files" javaType="java.util.List" ofType="NoticeFilesVO">
 			<id property="fnum" column="fnum"/>
 			<result property="fname" column="fname"/>
