@@ -25,14 +25,27 @@ public class BoardQnaService implements BoardService {
 
 	@Inject
 	private FileSaver fileSaver;
-	
+
 	@Inject
 	private QnaFilesDAO qnaFilesDAO;
-	
+
+public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) throws Exception{
+		
+		return qnaFilesDAO.fileSelect(qnaFilesVO);
+	}
+
+
+
+	public int fileDelete(QnaFilesVO qnaFilesVO)throws Exception {
+
+		return qnaFilesDAO.fileDelete(qnaFilesVO);
+	}
+
+
 	public int boardReply(BoardVO boardVO) throws Exception{
-		
+
 		BoardQnaVO parent = (BoardQnaVO)boardQnaDAO.boardSelect(boardVO);
-		
+
 		int result = boardQnaDAO.boardReplyUpdate(parent);
 
 		//방법2,
@@ -41,10 +54,10 @@ public class BoardQnaService implements BoardService {
 		parent.setContents(boardVO.getContents());
 		parent.setStep(parent.getStep()+1);
 		parent.setDepth(parent.getDepth()+1);
-		
+
 		return boardQnaDAO.boardReply(parent);
-		
-		
+
+
 		//방법1,
 		//		BoardQnaVO child = new BoardQnaVO(); 
 		//		child.setTitle(boardVO.getTitle());
@@ -79,68 +92,60 @@ public class BoardQnaService implements BoardService {
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
 		//boardVO=boardQnaDAO.boardSelect(boardVO);
-		
+
 		//BoardQnaVO boardQnaVO = (BoardQnaVO)boardVO;
-		
+
 		//List<QnaFilesVO> ar= qnaFilesDAO.fileList(boardVO.getNum());
-		
+
 		//boardQnaVO.setFiles(ar);
-		
+
 		return boardQnaDAO.boardSelect(boardVO);
-		
+
 	}
 
 	@Override
 	public int boardWrite(BoardVO boardVO , MultipartFile [] file , HttpSession session) throws Exception {
 
 		//1. 파일을 저장할 실제경로
-				String realPath = session.getServletContext().getRealPath("resources/upload/qna");
-				
-				//System.out.println(file.exists());//파일이 존재합니까? true
-				//System.out.println(file.isDirectory()); //폴더가 존재합니까? 트루면 존재 펄스면 존재x  true
-				
-				QnaFilesVO qnaFilesVO = new QnaFilesVO();
-				int result = boardQnaDAO.boardWrite(boardVO);
-				
-				qnaFilesVO.setNum(boardVO.getNum());
-				
-				System.out.println(realPath);
-				
-				for(MultipartFile multipartFile:file) {
-				 	if(multipartFile.getSize() != 0) {
-					
-					String fileName = fileSaver.save(realPath, multipartFile);
-					qnaFilesVO.setFnum(boardVO.getNum());
-					qnaFilesVO.setFname(fileName);
-					qnaFilesVO.setOname(multipartFile.getOriginalFilename());
-					result=qnaFilesDAO.fileWrite(qnaFilesVO);
-				 	}
+		String realPath = session.getServletContext().getRealPath("resources/upload/qna");
+
+		//System.out.println(file.exists());//파일이 존재합니까? true
+		//System.out.println(file.isDirectory()); //폴더가 존재합니까? 트루면 존재 펄스면 존재x  true
+
+		QnaFilesVO qnaFilesVO = new QnaFilesVO();
+		int result = boardQnaDAO.boardWrite(boardVO);
+
+		System.out.println(realPath);
+
+		for(MultipartFile multipartFile:file) {
+
+			String fileName = fileSaver.save(realPath, multipartFile);
+			qnaFilesVO.setFname(fileName);
+			qnaFilesVO.setOname(multipartFile.getOriginalFilename());
+			qnaFilesVO.setNum(boardVO.getNum());
+			qnaFilesDAO.fileWrite(qnaFilesVO);
+
 		}
-		
+
 		return result;
-		
-	
-		
+
 	}
+
 
 	@Override
 	public int boardUpdate(BoardVO boardVO, MultipartFile [] file, HttpSession session ) throws Exception {
 
 		String realPath = session.getServletContext().getRealPath("resources/upload/qna");
-		
 		QnaFilesVO qnaFilesVO = new QnaFilesVO();
-		qnaFilesVO.setNum(boardVO.getNum());
-		
-		System.out.println(realPath);
-		
-		for(MultipartFile multipartFile:file) {
+		int result = boardQnaDAO.boardUpdate(boardVO);
+		for(MultipartFile multipartFile : file) {
 			String fileName = fileSaver.save(realPath, multipartFile);
-			qnaFilesVO.setFnum(boardVO.getNum());
-			
+			qnaFilesVO.setFname(fileName);
+			qnaFilesVO.setOname(multipartFile.getOriginalFilename());
+			qnaFilesVO.setNum(boardVO.getNum());
+			qnaFilesDAO.fileWrite(qnaFilesVO);
 		}
-		
-		
-		
+
 		return boardQnaDAO.boardUpdate(boardVO);
 	}
 
@@ -153,6 +158,6 @@ public class BoardQnaService implements BoardService {
 
 
 
-	
+
 
 }

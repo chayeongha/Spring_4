@@ -4,21 +4,17 @@ import java.util.List;
 
 public class BoardQnaVO extends BoardVO {
 
-	private List<QnaFilesVO>files;
-	
-	public List<QnaFilesVO>getFiles(){
-		
-		return files;
-	}
-	
-	public void setFiles(List<QnaFilesVO>files) {
-		this.files=files;
-	}
-	
 	private int ref;
 	private int step;
 	private int depth;
+	private List<QnaFilesVO> files;
 	
+	public List<QnaFilesVO> getFiles() {
+		return files;
+	}
+	public void setFiles(List<QnaFilesVO> files) {
+		this.files = files;
+	}
 	public int getRef() {
 		return ref;
 	}

@@ -30,42 +30,40 @@ public class QnaController {
 	
 	
 	@GetMapping(value = "fileDown")
-	public ModelAndView fileDown(QnaFilesVO qnaFilesVO) throws Exception{
+	public ModelAndView fileDown(QnaFilesVO qnaFilesVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
 		
 		qnaFilesVO = boardQnaService.fileSelect(qnaFilesVO);
-		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("board", "qna");
 		mv.addObject("file", qnaFilesVO);
+		mv.addObject("board", "qna");
 		mv.setViewName("fileDown");
-		
 		return mv;
-		
 	}
 	
 	
 	
 	@PostMapping(value = "fileDelete")
-	public ModelAndView fileDelete(QnaFilesVO qnaFilesVO)throws Exception {
-		
+	public ModelAndView fileDelete(QnaFilesVO qnaFilesVO)throws Exception{
+		//System.out.println(noticeFilesVO.getFnum()); 콘솔에 잘나오는지 확인.
 		ModelAndView mv = new ModelAndView();
-	
-	     int result   = boardQnaService.fileDelete(qnaFilesVO);
-	     
-	     mv.addObject("result", result);
-	     mv.setViewName("common/common_ajaxResult");
-	     
-	     return mv;
-	     
-	}
-	
+			
+		int result=boardQnaService.fileDelete(qnaFilesVO);
+		
+		//view resolver에서 맨앞에 WEB-INF/views까지 붙여주고 ,맨뒤에 확장자.jsp붙여줌
+		mv.addObject("result", result);
+		mv.setViewName("common/common_ajaxResult");
+		
+		return mv;
+		
+
+	}	
 	
 
 	//REPLY-GETMETHOD
 	@RequestMapping(value = "qnaReply", method = RequestMethod.GET)
 	public ModelAndView boardReply(BoardVO boardVO)throws Exception{
 	
-		ModelAndView mv = new ModelAndView();
+			ModelAndView mv = new ModelAndView();
 		
 			mv.addObject("dto", boardVO);
 			mv.setViewName("board/boardReply");
@@ -127,11 +125,7 @@ public class QnaController {
 	public ModelAndView boardWrite(BoardVO boardVO ,HttpSession session ,MultipartFile [] file)throws Exception {
 
 		ModelAndView mv = new ModelAndView();
-		for(int i=0;i<file.length;i++) {
-			
-		System.out.println(file[i].getOriginalFilename());
-			
-		}
+		
 		int result =boardQnaService.boardWrite(boardVO , file , session);
 		
 		if (result==1) {
@@ -174,9 +168,9 @@ public class QnaController {
 	@RequestMapping(value = "qnaUpdate" , method = RequestMethod.GET)
 	public ModelAndView boardUpdate(BoardVO boardVO)throws Exception {
 
-		boardVO =boardQnaService.boardSelect(boardVO);
-
 		ModelAndView mv = new ModelAndView();
+
+		boardVO =boardQnaService.boardSelect(boardVO);
 
 		BoardQnaVO qnaVO= (BoardQnaVO)boardVO;
 		int size = qnaVO.getFiles().size();

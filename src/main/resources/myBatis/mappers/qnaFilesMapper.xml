@@ -3,22 +3,26 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="qnaFilesMapper">
-  
-  <insert id="fileWrite" parameterType="QnaFilesVO">
-  
-  	insert into qnaFiles values(file_seq.nextval, #{num}, #{fname},#{oname})
-  
-  
-  
-  </insert>
-  
-  <select id="fileList" parameterType="java.lang.Integer" resultType="QnaFilesVO">
-  	select*from qnaFiles where num=#{num}
-  
-  </select>
-  
-  
-  
-  </mapper>
+
+<mapper namespace="qnaFilesMapper">
+
+	<insert id="fileWrite" parameterType="QnaFilesVO">
+
+		insert into qnaFiles values(file_seq.nextval, #{num}, #{fname},#{oname})
+
+	</insert>
+
+	<select id="fileList" parameterType="java.lang.Integer" resultType="QnaFilesVO">
+		select*from qnaFiles where num=#{num}
+
+	</select>
+
+	<select id="fileSelect" resultType="QnaFilesVO" parameterType="QnaFilesVO">
+		select * from qnafiles where fnum = #{fnum}
+	</select>
+
+	<delete id="fileDelete" parameterType="QnaFilesVO">
+		delete qnaFiles where fnum=#{fnum}
+	</delete>
+
+</mapper>
