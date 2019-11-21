@@ -86,6 +86,7 @@ public class BoardNoticeService implements BoardService {
 			if(multipartFile.getSize() != 0) {
 			
 			String fileName = fileSaver.save(realPath, multipartFile);
+			noticeFilesVO.setFnum(boardVO.getNum());
 			noticeFilesVO.setFname(fileName);
 			noticeFilesVO.setOname(multipartFile.getOriginalFilename());
 			result=noticeFilesDAO.fileWrite(noticeFilesVO);

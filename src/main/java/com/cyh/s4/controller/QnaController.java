@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cyh.s4.model.BoardQnaVO;
 import com.cyh.s4.model.BoardVO;
+import com.cyh.s4.model.NoticeFilesVO;
+import com.cyh.s4.model.QnaFilesVO;
 import com.cyh.s4.service.BoardQnaService;
 import com.cyh.s4.util.Pager;
 
@@ -23,6 +27,39 @@ public class QnaController {
 
 	@Inject
 	private BoardQnaService boardQnaService;
+	
+	
+	@GetMapping(value = "fileDown")
+	public ModelAndView fileDown(QnaFilesVO qnaFilesVO) throws Exception{
+		
+		qnaFilesVO = boardQnaService.fileSelect(qnaFilesVO);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("board", "qna");
+		mv.addObject("file", qnaFilesVO);
+		mv.setViewName("fileDown");
+		
+		return mv;
+		
+	}
+	
+	
+	
+	@PostMapping(value = "fileDelete")
+	public ModelAndView fileDelete(QnaFilesVO qnaFilesVO)throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+	
+	     int result   = boardQnaService.fileDelete(qnaFilesVO);
+	     
+	     mv.addObject("result", result);
+	     mv.setViewName("common/common_ajaxResult");
+	     
+	     return mv;
+	     
+	}
+	
+	
 
 	//REPLY-GETMETHOD
 	@RequestMapping(value = "qnaReply", method = RequestMethod.GET)
@@ -119,6 +156,8 @@ public class QnaController {
 
 		boardVO= boardQnaService.boardSelect(boardVO);
 
+		boardVO.setContents(boardVO.getContents().replace("\n\r", "<br>"));
+		
 		mv.addObject("board", "qna");
 		mv.addObject("PageName", "Qna");
 		mv.addObject("dto", boardVO);
@@ -139,8 +178,11 @@ public class QnaController {
 
 		ModelAndView mv = new ModelAndView();
 
+		BoardQnaVO qnaVO= (BoardQnaVO)boardVO;
+		int size = qnaVO.getFiles().size();
+		
+		mv.addObject("size", size);
 		mv.addObject("dto", boardVO);
-
 		mv.addObject("board", "qna");
 		mv.addObject("PageName", "Qna");
 		mv.setViewName("board/boardUpdate");
@@ -153,9 +195,9 @@ public class QnaController {
 
 	//UPDATE-POSTMETHOD
 	@RequestMapping(value = "qnaUpdate",method = RequestMethod.POST )
-	public ModelAndView boardUpdate2(BoardVO boardVO) throws Exception{
+	public ModelAndView boardUpdate2(BoardVO boardVO, MultipartFile [] file , HttpSession session) throws Exception{
 
-		int result = boardQnaService.boardUpdate(boardVO);
+		int result = boardQnaService.boardUpdate(boardVO, file, session);
 
 		ModelAndView mv = new ModelAndView();
 

@@ -68,6 +68,8 @@ public class NoticeController {
 
 		boardVO.setContents(boardVO.getContents().replace("\n\r", "<br>"));
 		
+		
+		
 		mv.addObject("board", "notice");
 		mv.addObject("PageName", "Notice");
 		mv.addObject("dto", boardVO);
