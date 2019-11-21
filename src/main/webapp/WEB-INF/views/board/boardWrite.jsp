@@ -31,6 +31,10 @@
 	      		<textarea class="form-control" rows="5" id="contents" placeholder="Enter contents" name="contents">${dto.contents}</textarea>
 	   		</div>
 			
+			
+			
+			
+			
 			<div id="files">	   		
 		    	<div class="form-group" title="parent" >
 	      			<label class="control-label col-sm-2" for="file">File:</label>
@@ -50,6 +54,11 @@
 		    <button class="btn btn-default" id="submit">SUBMIT</button>
 			<a href="./${board}List.jsp" class="btn btn-default">LIST</a>
 		  </form>
+		  
+		 
+			
+
+		  
 		</div>
 
 		<script type="text/javascript">

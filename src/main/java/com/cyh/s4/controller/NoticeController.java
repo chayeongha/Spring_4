@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,18 @@ public class NoticeController {
 	@Inject
 	private BoardNoticeService boardNoticeService;
 
+	@GetMapping(value= "fileDown")
+	public ModelAndView fileDown(NoticeFilesVO noticeFilesVO) throws Exception{
+    
+		noticeFilesVO =	boardNoticeService.fileSelect(noticeFilesVO);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("board", "notice");
+		mv.addObject("file", noticeFilesVO);
+		mv.setViewName("fileDown");
+		
+		return mv;
+	}
 
 	@PostMapping(value = "fileDelete")
 	public ModelAndView fileDelete(NoticeFilesVO noticeFilesVO)throws Exception{
@@ -53,6 +66,8 @@ public class NoticeController {
 
 		boardVO = boardNoticeService.boardSelect(boardVO);
 
+		boardVO.setContents(boardVO.getContents().replace("\n\r", "<br>"));
+		
 		mv.addObject("board", "notice");
 		mv.addObject("PageName", "Notice");
 		mv.addObject("dto", boardVO);
@@ -142,9 +157,9 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value ="noticeUpdate",method = RequestMethod.POST )
-	public ModelAndView boardUpdate2(BoardVO boardVO) throws Exception{
+	public ModelAndView boardUpdate2(BoardVO boardVO , MultipartFile [] file , HttpSession session) throws Exception{
 
-		int result =boardNoticeService.boardUpdate(boardVO);
+		int result =boardNoticeService.boardUpdate(boardVO, file , session);
 
 		ModelAndView mv = new ModelAndView();
 

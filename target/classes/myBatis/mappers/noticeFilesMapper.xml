@@ -5,6 +5,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="noticeFilesMapper">
+  	
+  	<select id="fileSelect" resultType="NoticeFilesVO" parameterType="NoticeFilesVO">
+  		select * from noticeFiles where fnum=#{fnum}
+  		
+  	</select>
   
   	<delete id="fileDelete" parameterType="NoticeFilesVO">
   		delete noticeFiles where fnum=#{fnum}

@@ -18,6 +18,11 @@ public class NoticeFilesDAO {
 	
 	private static final String NAMESPACE="noticeFilesMapper.";
 	
+	public NoticeFilesVO fileSelect(NoticeFilesVO noticeFilesVO) throws Exception{
+		
+		return sqlSession.selectOne(NAMESPACE+"fileSelect" , noticeFilesVO);
+	}
+	
 	
 	public int fileDelete(NoticeFilesVO noticeFilesVO)throws Exception {
 		

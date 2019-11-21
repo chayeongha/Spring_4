@@ -35,8 +35,8 @@
 	<!--boardUpdate -->
 
 	<update id="boardUpdate" parameterType="NoticeVO">
-		update notice set title=#{title},writer=#{writer} , contents=#{contents} ,
-		#{fileName} , #{originalName}
+		update notice set title=#{title},writer=#{writer} , contents=#{contents} 
+		
 		where num=#{num}
 
 	</update>
