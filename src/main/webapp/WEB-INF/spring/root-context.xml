@@ -6,9 +6,9 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
-			<property name="username" value="spring01"/>
-			<property name="password" value="spring01"/>
-			<property name="url" value="jdbc:oracle:thin:@192.168.56.102:1521:xe"></property>
+			<property name="username" value="team"/>
+			<property name="password" value="team"/>
+			<property name="url" value="jdbc:oracle:thin:@211.238.142.44:1521:xe"></property>
 			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
 	
 	</bean>
