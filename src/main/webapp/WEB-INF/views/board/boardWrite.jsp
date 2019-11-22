@@ -101,7 +101,21 @@
 			});
 			
 			function deleteFile(file ,editor) {
-					console.log(file);
+					var fileName = $(file).attr("src");
+				fileName = fileName.substring(fileName.lastIndexOf("/")+1);
+					
+				$.ajax({
+					type:"POST",
+					url: "summerFileDelete",
+					data:{
+						file:fileName
+					},
+					success:function(data){
+						console.log(data);
+						
+					}
+					
+				});
 			}
 			
 			
