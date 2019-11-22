@@ -9,9 +9,11 @@
 <title>Insert title here</title>
 
 <c:import url="../layout/bootStrap.jsp" />
+<c:import url="../layout/summerNote.jsp"></c:import>
 </head>
 <body>
 	<c:import url="../layout/nav.jsp" />
+	
 
 	<div class="container">
 		<h2>${fn:toLowerCase(board)}UpdatePage</h2>
@@ -33,7 +35,7 @@
 
 			<div class="form-group">
 				<label for="comment">Contents:</label>
-				<textarea class="form-control" rows="5" id="contents"
+				<textarea class="form-control"  id="contents"
 					name="contents">${dto.contents}</textarea>
 			</div>
 
@@ -70,6 +72,15 @@
 	 	var files = $("#files").html();
 	 	var count = ${size};
 	 	$("#files").empty();
+	 	
+	 	//섬머노트
+	 	$("#contents").summernote({
+	 		height: 400
+	 	});
+	 	
+	 	//정보 미리들어오는거
+		$("#contents").summernote('code', '${dto.contents}');
+	 	
 	 	
 	 	// file 추가
 	 	$(".ins_file").click(function() {

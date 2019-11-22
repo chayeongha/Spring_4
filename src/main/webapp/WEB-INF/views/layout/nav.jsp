@@ -11,17 +11,18 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">MENU <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="${pageContext.request.contextPath}/notice/noticeList">Notice List</a></li>
           <li><a href="${pageContext.request.contextPath}/notice/noticeWrite">Notice Write</a></li>
 
-          <li><a href="${pageContext.request.contextPath}/qna/qnaList">QNA</a></li>
+          <li><a href="${pageContext.request.contextPath}/qna/qnaList">Qna List</a></li>
+          <li><a href="${pageContext.request.contextPath}/qna/qnaWrite">Qna Write</a></li>
 
 
         </ul>
       </li>
-      <li><a href="${pageContext.request.contextPath}/notice/noticeList">Notice</a></li>
+     
     </ul>
     <ul class="nav navbar-nav navbar-right">
    

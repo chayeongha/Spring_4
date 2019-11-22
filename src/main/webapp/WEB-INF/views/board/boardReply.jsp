@@ -11,7 +11,7 @@
 </head>
 <body>
 <c:import url="../layout/nav.jsp" />
-
+<c:import url="../layout/summerNote.jsp"></c:import>
 
 <div class="container">
   			
@@ -47,6 +47,17 @@
   				  
 		</form>
 </div>
+<script type="text/javascript">
+
+// 섬머노트
+$("#contents").summernote({
+	height: 400
+	
+});
+
+
+</script>
+
 
 </body>
 </html>

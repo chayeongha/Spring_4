@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 
 <c:import url="../layout/bootStrap.jsp" />
+<c:import url="../layout/summerNote.jsp"></c:import>
 </head>
 <body>
 	<c:import url="../layout/nav.jsp" />
@@ -28,7 +29,7 @@
 		    
 		    <div class="form-group">
 	      		<label for="comment">Contents:</label>
-	      		<textarea class="form-control" rows="5" id="contents" placeholder="Enter contents" name="contents">${dto.contents}</textarea>
+	      		<textarea class="form-control" rows="5" id="contents" placeholder="Enter contents" name="contents" >${dto.contents}</textarea>
 	   		</div>
 			
 			
@@ -52,6 +53,7 @@
 		    
 		    
 		    <button class="btn btn-default" id="submit">SUBMIT</button>
+		    <!-- <input type="button" id="btn2" value="test">  -->
 			<a href="./${board}List.jsp" class="btn btn-default">LIST</a>
 		  </form>
 		  
@@ -67,7 +69,22 @@
 			var count = 0;
 			var index = 0;//인덱스번호
 			
-
+			
+			//섬머노트(에디터)
+			$("#contents").summernote({
+		        height: 400
+			});
+			
+			//섬머노트데이터가져오기
+			$("#btn2").click(function() {
+				alert($("#contents").summernote('code'));
+			});
+			
+			//섬머노트에 미리 텍스트 뿌려지도록.			
+			//$("#contents").summernote('code', 'hello');
+			
+			
+			
 			$('#btn').click(function() {
 				if(count<5){
 					$('#files').append(files);
@@ -90,6 +107,9 @@
 			
 				
 			});
+			
+		
+			
 			
 			
 		

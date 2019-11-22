@@ -12,7 +12,7 @@
 </head>
 <body>
 	<c:import url="../layout/nav.jsp" />
-	<h1>${PageName}Select Page</h1>
+	<h1>${PageName}SelectPage</h1>
 
 	<div class="container">
 		<table class="table">
@@ -21,7 +21,7 @@
 					<th>NUM</th>
 					<th>TITLE</th>
 					<th>WRITER</th>
-					<th>CONTENTS</th>
+
 					<th>DATE</th>
 					<th>HIT</th>
 				</tr>
@@ -31,7 +31,7 @@
 					<td>${dto.num}</td>
 					<td>${dto.title}</td>
 					<td>${dto.writer}</td>
-					<td>${dto.contents}</td>
+
 					<td>${dto.reg_date}</td>
 					<td>${dto.hit}</td>
 
@@ -39,26 +39,34 @@
 			</tbody>
 		</table>
 	</div>
-	
-	<div>
-	
-			<c:forEach items="${dto.files}" var="file">
-			
-				<a href="./fileDown?fnum=${file.fnum}">${file.oname}</a>
-			
-			</c:forEach>
-	
-	</div>
-	
-	
 
-	<div class="button">
 
-		<a class="btn btn-danger" href="${board}Update?num=${dto.num} ">Update</a>
-		<a class="btn btn-primary" href="${board}Delete?num=${dto.num}" >Delete</a>
+
+	<div class="container">
+		<form>
+			<div class="form-group">
+				<label for="comment">Contents:</label>
+				<div class="well" id="contents">${dto.contents}</div>
+			</div>
+		</form>
+
+		<a href="./${board}Update?num=${dto.num}" class="btn btn-default">Update</a>
+		<a href="./${board}Delete?num=${dto.num}" class="btn btn-default">Delete</a>
 		<c:if test="${board ne 'notice'}">
-		<a class="btn btn-success" href="${board}Reply?num=${dto.num} " >Reply</a>
+			<a href="./${board}Reply?num=${dto.num}" class="btn btn-default">Reply</a>
 		</c:if>
+		<a href="./${board}List?num=${dto.num}" class="btn btn-default">List</a>
+
+	</div>
+
+	<div>
+
+		<c:forEach items="${dto.files}" var="file">
+
+			<a href="./fileDown?fnum=${file.fnum}">${file.oname}</a>
+
+		</c:forEach>
+
 	</div>
 
 </body>
