@@ -6,22 +6,22 @@
 
 <mapper namespace="qnaFilesMapper">
 
-	<insert id="fileWrite" parameterType="QnaFilesVO">
+	<insert id="fileWrite" parameterType="FilesVO">
 
 		insert into qnaFiles values(file_seq.nextval, #{num}, #{fname},#{oname})
 
 	</insert>
 
-	<select id="fileList" parameterType="java.lang.Integer" resultType="QnaFilesVO">
+	<select id="fileList" parameterType="java.lang.Integer" resultType="FilesVO">
 		select*from qnaFiles where num=#{num}
 
 	</select>
 
-	<select id="fileSelect" resultType="QnaFilesVO" parameterType="QnaFilesVO">
+	<select id="fileSelect" resultType="FilesVO" parameterType="FilesVO">
 		select * from qnafiles where fnum = #{fnum}
 	</select>
 
-	<delete id="fileDelete" parameterType="QnaFilesVO">
+	<delete id="fileDelete" parameterType="FilesVO">
 		delete qnaFiles where fnum=#{fnum}
 	</delete>
 

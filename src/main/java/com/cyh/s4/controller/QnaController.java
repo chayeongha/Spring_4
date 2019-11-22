@@ -16,8 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cyh.s4.model.BoardQnaVO;
 import com.cyh.s4.model.BoardVO;
-import com.cyh.s4.model.NoticeFilesVO;
-import com.cyh.s4.model.QnaFilesVO;
+import com.cyh.s4.model.FilesVO;
+
 import com.cyh.s4.service.BoardQnaService;
 import com.cyh.s4.util.Pager;
 
@@ -30,11 +30,11 @@ public class QnaController {
 	
 	
 	@GetMapping(value = "fileDown")
-	public ModelAndView fileDown(QnaFilesVO qnaFilesVO)throws Exception{
+	public ModelAndView fileDown(FilesVO filesVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
-		qnaFilesVO = boardQnaService.fileSelect(qnaFilesVO);
-		mv.addObject("file", qnaFilesVO);
+		filesVO = boardQnaService.fileSelect(filesVO);
+		mv.addObject("file", filesVO);
 		mv.addObject("board", "qna");
 		mv.setViewName("fileDown");
 		return mv;
@@ -43,11 +43,11 @@ public class QnaController {
 	
 	
 	@PostMapping(value = "fileDelete")
-	public ModelAndView fileDelete(QnaFilesVO qnaFilesVO)throws Exception{
+	public ModelAndView fileDelete(FilesVO filesVO)throws Exception{
 		//System.out.println(noticeFilesVO.getFnum()); 콘솔에 잘나오는지 확인.
 		ModelAndView mv = new ModelAndView();
 			
-		int result=boardQnaService.fileDelete(qnaFilesVO);
+		int result=boardQnaService.fileDelete(filesVO);
 		
 		//view resolver에서 맨앞에 WEB-INF/views까지 붙여주고 ,맨뒤에 확장자.jsp붙여줌
 		mv.addObject("result", result);

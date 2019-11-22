@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.cyh.s4.model.NoticeFilesVO;
-import com.cyh.s4.model.QnaFilesVO;
+import com.cyh.s4.model.FilesVO;
+
 
 @Repository
 public class QnaFilesDAO {
@@ -18,24 +18,24 @@ public class QnaFilesDAO {
 
 	private static final String NAMESPACE="qnaFilesMapper.";
 
-	public List<QnaFilesVO>fileList(int num)throws Exception{
+	public List<FilesVO>fileList(int num)throws Exception{
 
 		return sqlSession.selectList(NAMESPACE+"fileList", num);
 	}
 
-	public int fileWrite(QnaFilesVO qnaFilesVO)throws Exception {
+	public int fileWrite(FilesVO filesVO)throws Exception {
 
-		return sqlSession.insert(NAMESPACE+"fileWrite", qnaFilesVO);
+		return sqlSession.insert(NAMESPACE+"fileWrite", filesVO);
 	}
 
-	public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) throws Exception{
+	public FilesVO fileSelect(FilesVO filesVO) throws Exception{
 
-		return sqlSession.selectOne(NAMESPACE+"fileSelect" , qnaFilesVO);
+		return sqlSession.selectOne(NAMESPACE+"fileSelect" , filesVO);
 	}
 
 
-	public int fileDelete(QnaFilesVO qnaFilesVO)throws Exception {
+	public int fileDelete(FilesVO filesVO)throws Exception {
 
-		return sqlSession.delete(NAMESPACE+"fileDelete", qnaFilesVO);
+		return sqlSession.delete(NAMESPACE+"fileDelete", filesVO);
 	}
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
-import com.cyh.s4.model.NoticeFilesVO;
+import com.cyh.s4.model.FilesVO;
 
 @Component
 public class FileDown extends AbstractView{
@@ -23,7 +23,7 @@ public class FileDown extends AbstractView{
 			HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		//컨트롤에서 보낸 file이라는 noticeFilesVO를 꺼낸다 model에서
-		NoticeFilesVO noticeFilesVO = (NoticeFilesVO)model.get("file");
+		FilesVO noticeFilesVO = (FilesVO)model.get("file");
 		String board = (String)model.get("board");
 		//		System.out.println(noticeFilesVO.getFname());
 		//		System.out.println(noticeFilesVO.getOname());

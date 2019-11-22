@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cyh.s4.model.BoardNoticeVO;
 import com.cyh.s4.model.BoardVO;
-import com.cyh.s4.model.NoticeFilesVO;
+import com.cyh.s4.model.FilesVO;
 import com.cyh.s4.service.BoardNoticeService;
 import com.cyh.s4.util.Pager;
 
@@ -26,25 +26,39 @@ public class NoticeController {
 	@Inject
 	private BoardNoticeService boardNoticeService;
 
+	@PostMapping(value = "summerFile")
+	public  ModelAndView summerFile(MultipartFile file , HttpSession session) throws Exception{
+	String fileName=	boardNoticeService.summerFile(file, session);
+	
+	ModelAndView mv= new ModelAndView();
+	
+	mv.setViewName("common/common_ajaxResult");
+	mv.addObject("result", fileName );
+	
+	return mv;
+	
+		
+	}
+	
 	@GetMapping(value= "fileDown")
-	public ModelAndView fileDown(NoticeFilesVO noticeFilesVO) throws Exception{
+	public ModelAndView fileDown(FilesVO filesVO) throws Exception{
     
-		noticeFilesVO =	boardNoticeService.fileSelect(noticeFilesVO);
+	filesVO =	boardNoticeService.fileSelect(filesVO);
 
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("board", "notice");
-		mv.addObject("file", noticeFilesVO);
+		mv.addObject("file", filesVO);
 		mv.setViewName("fileDown");
 		
 		return mv;
 	}
 
 	@PostMapping(value = "fileDelete")
-	public ModelAndView fileDelete(NoticeFilesVO noticeFilesVO)throws Exception{
+	public ModelAndView fileDelete(FilesVO filesVO)throws Exception{
 		//System.out.println(noticeFilesVO.getFnum()); 콘솔에 잘나오는지 확인.
 		ModelAndView mv = new ModelAndView();
 			
-		int result=boardNoticeService.fileDelete(noticeFilesVO);
+		int result=boardNoticeService.fileDelete(filesVO);
 		
 		//view resolver에서 맨앞에 WEB-INF/views까지 붙여주고 ,맨뒤에 확장자.jsp붙여줌
 		mv.addObject("result", result);

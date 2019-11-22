@@ -10,7 +10,7 @@
         <typeAlias type="com.cyh.s4.model.BoardQnaVO" alias="QnaVO"/>
         <typeAlias type="com.cyh.s4.model.MemberVO" alias="MemberVO"/>
         <typeAlias type="com.cyh.s4.util.Pager" alias="Pager"/>
-        <typeAlias type="com.cyh.s4.model.NoticeFilesVO" alias="NoticeFilesVO"/>
-   		<typeAlias type="com.cyh.s4.model.QnaFilesVO" alias="QnaFilesVO"/>
+        <typeAlias type="com.cyh.s4.model.FilesVO" alias="FilesVO"/>
+   		
      </typeAliases>
   </configuration>

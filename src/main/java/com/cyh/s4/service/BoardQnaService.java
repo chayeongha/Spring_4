@@ -12,8 +12,8 @@ import com.cyh.s4.dao.BoardQnaDAO;
 import com.cyh.s4.dao.QnaFilesDAO;
 import com.cyh.s4.model.BoardQnaVO;
 import com.cyh.s4.model.BoardVO;
-import com.cyh.s4.model.NoticeFilesVO;
-import com.cyh.s4.model.QnaFilesVO;
+import com.cyh.s4.model.FilesVO;
+
 import com.cyh.s4.util.FileSaver;
 import com.cyh.s4.util.Pager;
 
@@ -29,16 +29,16 @@ public class BoardQnaService implements BoardService {
 	@Inject
 	private QnaFilesDAO qnaFilesDAO;
 
-public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) throws Exception{
+public FilesVO fileSelect(FilesVO filesVO) throws Exception{
 		
-		return qnaFilesDAO.fileSelect(qnaFilesVO);
+		return qnaFilesDAO.fileSelect(filesVO);
 	}
 
 
 
-	public int fileDelete(QnaFilesVO qnaFilesVO)throws Exception {
+	public int fileDelete(FilesVO filesVO)throws Exception {
 
-		return qnaFilesDAO.fileDelete(qnaFilesVO);
+		return qnaFilesDAO.fileDelete(filesVO);
 	}
 
 
@@ -112,7 +112,7 @@ public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) throws Exception{
 		//System.out.println(file.exists());//파일이 존재합니까? true
 		//System.out.println(file.isDirectory()); //폴더가 존재합니까? 트루면 존재 펄스면 존재x  true
 
-		QnaFilesVO qnaFilesVO = new QnaFilesVO();
+		FilesVO filesVO = new FilesVO();
 		int result = boardQnaDAO.boardWrite(boardVO);
 
 		System.out.println(realPath);
@@ -120,10 +120,10 @@ public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) throws Exception{
 		for(MultipartFile multipartFile:file) {
 
 			String fileName = fileSaver.save(realPath, multipartFile);
-			qnaFilesVO.setFname(fileName);
-			qnaFilesVO.setOname(multipartFile.getOriginalFilename());
-			qnaFilesVO.setNum(boardVO.getNum());
-			qnaFilesDAO.fileWrite(qnaFilesVO);
+			filesVO.setFname(fileName);
+			filesVO.setOname(multipartFile.getOriginalFilename());
+			filesVO.setNum(boardVO.getNum());
+			qnaFilesDAO.fileWrite(filesVO);
 
 		}
 
@@ -136,14 +136,14 @@ public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) throws Exception{
 	public int boardUpdate(BoardVO boardVO, MultipartFile [] file, HttpSession session ) throws Exception {
 
 		String realPath = session.getServletContext().getRealPath("resources/upload/qna");
-		QnaFilesVO qnaFilesVO = new QnaFilesVO();
+		FilesVO filesVO = new FilesVO();
 		int result = boardQnaDAO.boardUpdate(boardVO);
 		for(MultipartFile multipartFile : file) {
 			String fileName = fileSaver.save(realPath, multipartFile);
-			qnaFilesVO.setFname(fileName);
-			qnaFilesVO.setOname(multipartFile.getOriginalFilename());
-			qnaFilesVO.setNum(boardVO.getNum());
-			qnaFilesDAO.fileWrite(qnaFilesVO);
+			filesVO.setFname(fileName);
+			filesVO.setOname(multipartFile.getOriginalFilename());
+			filesVO.setNum(boardVO.getNum());
+			qnaFilesDAO.fileWrite(filesVO);
 		}
 
 		return boardQnaDAO.boardUpdate(boardVO);

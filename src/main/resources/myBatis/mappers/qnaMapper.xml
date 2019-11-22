@@ -99,7 +99,7 @@
 		<result property="step" column="step"/>
 		<result property="depth" column="depth"/>
 		
-		<collection property="files" javaType="java.util.List" ofType="QnaFilesVO">
+		<collection property="files" javaType="java.util.List" ofType="FilesVO">
 			<id property="fnum" column="fnum"/>
 			<result property="fname" column="fname"/>
 			<result property="oname" column="oname"/>

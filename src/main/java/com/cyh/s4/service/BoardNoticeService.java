@@ -13,7 +13,7 @@ import com.cyh.s4.dao.BoardNoticeDAO;
 import com.cyh.s4.dao.NoticeFilesDAO;
 import com.cyh.s4.model.BoardNoticeVO;
 import com.cyh.s4.model.BoardVO;
-import com.cyh.s4.model.NoticeFilesVO;
+import com.cyh.s4.model.FilesVO;
 import com.cyh.s4.util.FileSaver;
 import com.cyh.s4.util.Pager;
 
@@ -29,16 +29,24 @@ public class BoardNoticeService implements BoardService {
 	@Inject
 	private NoticeFilesDAO noticeFilesDAO;
 	
-	public NoticeFilesVO fileSelect(NoticeFilesVO noticeFilesVO) throws Exception{
+	
+	public String summerFile(MultipartFile file, HttpSession session)throws Exception {
+		String realPath=session.getServletContext().getRealPath("resources/upload/summerFile");
+	
+		return fileSaver.save(realPath, file);
 		
-		return noticeFilesDAO.fileSelect(noticeFilesVO);
+	}
+	
+	public FilesVO fileSelect(FilesVO filesVO) throws Exception{
+		
+		return noticeFilesDAO.fileSelect(filesVO);
 	}
 	
 	
 	
-	public int fileDelete(NoticeFilesVO noticeFilesVO)throws Exception {
+	public int fileDelete(FilesVO filesVO)throws Exception {
 		
-		return noticeFilesDAO.fileDelete(noticeFilesVO);
+		return noticeFilesDAO.fileDelete(filesVO);
 	}
 	
 	
@@ -77,7 +85,7 @@ public class BoardNoticeService implements BoardService {
 		
 		//System.out.println(file.exists());//파일이 존재합니까? true
 		//System.out.println(file.isDirectory()); //폴더가 존재합니까? 트루면 존재 펄스면 존재x  true
-		NoticeFilesVO noticeFilesVO = new NoticeFilesVO();
+		FilesVO noticeFilesVO = new FilesVO();
 		int result = boardNoticeDAO.boardWrite(boardVO);
 		
 		noticeFilesVO.setNum(boardVO.getNum());
@@ -106,7 +114,7 @@ public class BoardNoticeService implements BoardService {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
 		
 		
-		NoticeFilesVO noticeFilesVO = new NoticeFilesVO();
+		FilesVO noticeFilesVO = new FilesVO();
 		noticeFilesVO.setNum(boardVO.getNum());
 		
 		//경로명test
