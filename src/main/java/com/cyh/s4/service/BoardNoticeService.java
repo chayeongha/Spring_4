@@ -1,6 +1,7 @@
 package com.cyh.s4.service;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -90,6 +91,11 @@ public class BoardNoticeService implements BoardService {
 			noticeFilesVO.setFname(fileName);
 			noticeFilesVO.setOname(multipartFile.getOriginalFilename());
 			result=noticeFilesDAO.fileWrite(noticeFilesVO);
+			
+			if(result<1) {
+			throw 	new SQLException();
+			}
+			
 			}
 		}
 		

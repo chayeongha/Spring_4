@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
@@ -31,7 +35,29 @@
 		<property name="maxUploadSizePerFile" value="10485760"></property>
 	
 	</bean>
+	
+	<!-- transaction Manager 설정 -->
+	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="txManager">
+	
+		<property name="dataSource" ref="dataSource"> </property>
+	</bean>
+	
+	
+	<!-- transation 으로 사용할 Advice 설정 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	
+	<aop:config>
 		
+				<aop:pointcut expression="execution(* com.cyh.s4.service.*.*(..))" id="requireTx"/>
+				<aop:advisor advice-ref="txAdvice" pointcut-ref="requireTx"/>
+		
+	</aop:config>
+	
 	
 		
 </beans>
