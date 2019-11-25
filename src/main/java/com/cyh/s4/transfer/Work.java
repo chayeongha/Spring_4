@@ -10,6 +10,9 @@ public class Work {
 			@Inject
 			private Transfer transfer;
 	
+			public void goTaxi() {
+				transfer.getTaxi();
+			}
 			
 			public void goWork() {
 				transfer.getBus("samsung");
