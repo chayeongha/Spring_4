@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 			<property name="username" value="spring01"/>
-			<property name="password" value="spring01"/>
-			<property name="url" value="jdbc:oracle:thin:@192.168.29.3:1521:xe"></property>
-			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-	
+		<property name="password" value="spring01"/>
+		<property name="url" value="jdbc:oracle:thin:@192.168.29.3:1521:xe"/>
+		<property name="driverClassName" value = "oracle.jdbc.driver.OracleDriver"/>
 	</bean>
 	
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
@@ -23,6 +24,8 @@
 	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
 			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
 	</bean>
+	
+	
 	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
 	<!--encoding 설정  -->
 		<property name="defaultEncoding" value="UTF-8"></property>
@@ -31,8 +34,26 @@
 	<!--파일당 최대 허용 크기 -->
 		<property name="maxUploadSizePerFile" value="10485760"></property>
 	
-	</bean>
-		
+	</bean >
+	
+	<!--advice  -->	
+	<bean class="com.cyh.s4.transfer.Card" id="card"></bean>	
+	
+	<!-- aop설정 -->
+	<aop:config>
+			<aop:aspect id="cardAspect" ref="card">
+			<aop:pointcut expression="execution(* com.cyh.s4.transfer.Transfer.get*(String))" id="trans"/>
+			<aop:around method="cardCheck" pointcut-ref="trans"/>
+			
+			</aop:aspect>
+			
+	<aop:aspect id="cashAspect" ref="card">
+			<aop:after method="cash" pointcut="execution(* com.cyh.s4.transfer.Transfer.taxi())"/>
+	</aop:aspect>
+	</aop:config>	
+	
+	
+	
 	
 		
 </beans>

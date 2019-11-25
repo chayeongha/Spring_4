@@ -1,4 +1,4 @@
-package com.cyh.transfer;
+package com.cyh.s4.transfer;
 
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ public class Subway {
 	public void getSubWay() {
 		
 		System.out.println("------SubWay-------");
-		System.out.println("ÇÚµåÆùº¸±â");
+		System.out.println("ìŒì•…ë“£ê¸°");
 		System.out.println("------SubWay-------");
 			}
 	

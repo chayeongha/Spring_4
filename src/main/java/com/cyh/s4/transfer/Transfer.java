@@ -1,32 +1,35 @@
-package com.cyh.transfer;
+package com.cyh.s4.transfer;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Transfer {
 	
 	public void getCar() {
 		System.out.println("----MyCar----");
-		System.out.println("¿îÀüÇÏ±â");
+		System.out.println("ìš´ì „");
 		System.out.println("----MyCar----");
 	}
 	
 	public void getTaxi() {
 		
 		System.out.println("-----taxi-----");
-		System.out.println("±â»ç´Ô°ú ´ëÈ­ÇÏ±â");
+		System.out.println("íƒì‹œíƒ€ê¸°");
 		System.out.println("-----taxi-----");
 	}
 	
 	
-	public void getBus() {
+	public void getBus(String cardName) {
 		
 		System.out.println("------Bus-------");
-		System.out.println("À½¾Çµè±â");
+		System.out.println("ìŒì•…");
 		System.out.println("------Bus-------");	
 	}
 	
-	public void getSubWay() {
+	public void getSubWay(String cardName) {
 		
 		System.out.println("------SubWay-------");
-		System.out.println("ÇÚµåÆùº¸±â");
+		System.out.println("ìŒì•…");
 		System.out.println("------SubWay-------");
 			}
 	
