@@ -32,7 +32,20 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
+		try {
+			model.addAttribute("serverTime", formattedDate );
+			String a ="abc";
+			//a.charAt(10);
+			
+			int n = Integer.parseInt(a);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+		}
+		
+		
 		
 //		String year ="2000";
 //		String month="12";

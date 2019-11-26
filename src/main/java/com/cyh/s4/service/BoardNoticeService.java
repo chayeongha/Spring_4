@@ -1,12 +1,14 @@
 package com.cyh.s4.service;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cyh.s4.dao.BoardNoticeDAO;
@@ -18,6 +20,7 @@ import com.cyh.s4.util.FileSaver;
 import com.cyh.s4.util.Pager;
 
 @Service
+@Transactional
 public class BoardNoticeService implements BoardService {
 
 	@Inject
@@ -68,7 +71,8 @@ public class BoardNoticeService implements BoardService {
 		
 		
 	}
-
+	
+	@Transactional
 	@Override
 	public int boardWrite(BoardVO boardVO , MultipartFile [] file , HttpSession session) throws Exception {
 		
@@ -90,6 +94,11 @@ public class BoardNoticeService implements BoardService {
 			noticeFilesVO.setFname(fileName);
 			noticeFilesVO.setOname(multipartFile.getOriginalFilename());
 			result=noticeFilesDAO.fileWrite(noticeFilesVO);
+			
+			if(result<1) {
+			throw 	new SQLException();
+			}
+			
 			}
 		}
 		
@@ -98,7 +107,8 @@ public class BoardNoticeService implements BoardService {
 		
 	
 	}
-
+	
+	@Transactional
 	@Override
 	public int boardUpdate(BoardVO boardVO , MultipartFile [] file , HttpSession session) throws Exception {
 		
