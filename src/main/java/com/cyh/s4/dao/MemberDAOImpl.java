@@ -15,11 +15,11 @@ public class MemberDAOImpl implements MemberDAO {
 	private SqlSession sqlSession;
 	
 	private static final String NAMESPACE="memberMapper.";
-		
+
 	//IDCHECK
 	public MemberVO memberIDCheck(MemberVO memberVO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"memberIdCheck", memberVO);
-		
+	
 	}
 	
 	@Override

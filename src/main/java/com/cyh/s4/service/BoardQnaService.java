@@ -124,7 +124,7 @@ public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) throws Exception{
 			qnaFilesVO.setOname(multipartFile.getOriginalFilename());
 			qnaFilesVO.setNum(boardVO.getNum());
 			qnaFilesDAO.fileWrite(qnaFilesVO);
-
+				
 		}
 
 		return result;

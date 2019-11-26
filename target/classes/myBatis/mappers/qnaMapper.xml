@@ -87,6 +87,7 @@
             
 	</select>
 	
+
 	<resultMap type="QnaVO" id="boardFile">
 		
 		<id property="num" column="num" />
