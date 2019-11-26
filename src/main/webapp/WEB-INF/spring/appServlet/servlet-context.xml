@@ -28,6 +28,17 @@
 	
 	<context:component-scan base-package="com.cyh.s4" />
 	
+	<interceptors>
+      <interceptor>
+         <mapping path="/qna/*"/>
+         <exclude-mapping path="/qna/qnaList"/>
+         <beans:bean class="com.cyh.s4.interceptors.LoginInterceptor" />
+      </interceptor>
+      <interceptor>
+         <mapping path="/**/*Update"/>
+         <beans:ref bean="updateInterceptor"/>
+      </interceptor>
+   </interceptors>
 	
 	
 </beans:beans>

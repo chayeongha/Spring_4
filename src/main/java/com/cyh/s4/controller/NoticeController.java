@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,16 @@ public class NoticeController {
 
 	@Inject
 	private BoardNoticeService boardNoticeService;
+	
+	/*
+	 * @ExceptionHandler(NullPointerException.class) public ModelAndView getNull() {
+	 * 
+	 * ModelAndView mv= new ModelAndView();
+	 * mv.setViewName("common/common_500_error");
+	 * 
+	 * return mv; }
+	 */
+	
 
 	@GetMapping(value= "fileDown")
 	public ModelAndView fileDown(NoticeFilesVO noticeFilesVO) throws Exception{

@@ -24,7 +24,7 @@
 		    
 		    <div class="form-group">
 		      <label for="writer">WRITER</label>
-		      <input type="text" class="form-control" id="writer" placeholder="Enter your ID or name" name="writer" value="${dto.writer}">
+		      <input type="text" class="form-control" id="writer" placeholder="Enter your ID or name" name="writer" value="${member.id}" readonly="readonly">
 		    </div>
 		    
 		    <div class="form-group">
