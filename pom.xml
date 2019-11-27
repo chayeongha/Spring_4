@@ -26,6 +26,15 @@
 	</repositories>
 
 	<dependencies>
+		<!--jason  -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+
 
 		<!--file upload -->
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
@@ -49,23 +58,23 @@
 			<artifactId>spring-aop</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
-		
+
+
 		<!-- aspectjweaver -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-		
+
 		<!-- spring-tx -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
-		
+
+
 
 		<!-- mybatis+spring -->
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
@@ -90,7 +99,7 @@
 			<version>11.2.0.3</version>
 		</dependency>
 
-		
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
