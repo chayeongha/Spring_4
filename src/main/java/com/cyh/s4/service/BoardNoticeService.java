@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cyh.s4.dao.BoardNoticeDAO;
@@ -33,8 +34,16 @@ public class BoardNoticeService implements BoardService {
 	@Inject
 	private NoticeFilesDAO noticeFilesDAO;
 	
-	@Value("${notice}")
+	@Value("#{db['notice']}")
 	private String board;
+	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return board;
+	}
+	
+	
+	
 	
 	public NoticeFilesVO fileSelect(NoticeFilesVO noticeFilesVO) throws Exception{
 		
@@ -143,6 +152,14 @@ public class BoardNoticeService implements BoardService {
 	public int boardDelete(BoardVO boardVO) throws Exception {
 		
 		return boardNoticeDAO.boardDelete(boardVO);
+	}
+
+
+
+
+	public String summerFile(MultipartFile file, HttpSession session) throws Exception{
+		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
+		return fileSaver.save2(realPath, file);
 	}
 
 }

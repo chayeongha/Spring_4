@@ -36,8 +36,18 @@ public class NoticeController {
 	 * 
 	 * return mv; }
 	 */
-	@Value("${notice}")
+	@Value("#{db['notice']}")
 	private String board;
+	
+	@PostMapping(value = "summerFile")
+	public ModelAndView summerFile(MultipartFile file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		String fileName = boardNoticeService.summerFile(file, session);
+		mv.setViewName("common/common_ajaxResult");
+		mv.addObject("result", fileName);
+		return mv;
+
+	}
 	
 
 	@GetMapping(value= "fileDown")
@@ -46,7 +56,7 @@ public class NoticeController {
 		noticeFilesVO =	boardNoticeService.fileSelect(noticeFilesVO);
 
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("board", "notice");
+		
 		mv.addObject("file", noticeFilesVO);
 		mv.setViewName("fileDown");
 		
@@ -83,10 +93,10 @@ public class NoticeController {
 		boardVO.setContents(boardVO.getContents().replace("\n\r", "<br>"));
 		
 		
-		
-		mv.addObject("board", "notice");
+		mv.addObject("boardVO", boardVO);
+	
 		mv.addObject("PageName", "Notice");
-		mv.addObject("dto", boardVO);
+		
 		mv.setViewName("board/boardSelect");
 
 		return mv;
@@ -104,7 +114,7 @@ public class NoticeController {
 
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
-		mv.addObject("board","notice");
+		
 		mv.addObject("PageName", "Notice");
 		mv.setViewName("board/boardList");
 		return mv;
@@ -115,7 +125,7 @@ public class NoticeController {
 	public ModelAndView  boardWrite()throws Exception{
 		ModelAndView mv = new ModelAndView();
 
-		mv.addObject("board","notice");
+		
 		mv.addObject("PageName", "Notice");
 		mv.setViewName("board/boardWrite");
 
@@ -145,8 +155,8 @@ public class NoticeController {
 		}else {
 			mv.addObject("msg","FAIL");
 			mv.addObject("path","noticeList");
+			mv.addObject("boardVO", boardVO);
 			mv.setViewName("common/common_result");
-
 		}
 
 		return mv;
@@ -165,8 +175,8 @@ public class NoticeController {
 		int size = noticeVO.getFiles().size();
 		mv.addObject("size", size);
 		mv.addObject("PageName","Notice Board");
-		mv.addObject("board", "notice");
-		mv.addObject("dto", boardVO);
+		mv.addObject("boardVO", boardVO);
+		
 		mv.setViewName("board/boardUpdate");
 		return mv;
 

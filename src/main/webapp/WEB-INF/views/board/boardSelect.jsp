@@ -28,12 +28,12 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>${dto.num}</td>
-					<td>${dto.title}</td>
-					<td>${dto.writer}</td>
+					<td>${boardVO.num}</td>
+					<td>${boardVO.title}</td>
+					<td>${boardVO.writer}</td>
 
-					<td>${dto.reg_date}</td>
-					<td>${dto.hit}</td>
+					<td>${boardVO.reg_date}</td>
+					<td>${boardVO.hit}</td>
 
 				</tr>
 			</tbody>
@@ -46,22 +46,22 @@
 		<form>
 			<div class="form-group">
 				<label for="comment">Contents:</label>
-				<div class="well" id="contents">${dto.contents}</div>
+				<div class="well" id="contents">${boardVO.contents}</div>
 			</div>
 		</form>
 
-		<a href="./${board}Update?num=${dto.num}" class="btn btn-default">Update</a>
-		<a href="./${board}Delete?num=${dto.num}" class="btn btn-default">Delete</a>
+		<a href="./${board}Update?num=${boardVO.num}" class="btn btn-default">Update</a>
+		<a href="./${board}Delete?num=${boardVO.num}" class="btn btn-default">Delete</a>
 		<c:if test="${board ne 'notice'}">
-			<a href="./${board}Reply?num=${dto.num}" class="btn btn-default">Reply</a>
+			<a href="./${board}Reply?num=${boardVO.num}" class="btn btn-default">Reply</a>
 		</c:if>
-		<a href="./${board}List?num=${dto.num}" class="btn btn-default">List</a>
+		<a href="./${board}List?num=${boardVO.num}" class="btn btn-default">List</a>
 
 	</div>
 
 	<div>
 
-		<c:forEach items="${dto.files}" var="file">
+		<c:forEach items="${boardVO.files}" var="file">
 
 			<a href="./fileDown?fnum=${file.fnum}">${file.oname}</a>
 

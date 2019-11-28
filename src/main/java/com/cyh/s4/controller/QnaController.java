@@ -5,9 +5,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +30,14 @@ public class QnaController {
 	@Inject
 	private BoardQnaService boardQnaService;
 	
+	@Value("#{db['qna']}")
+	private String board;
+	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return board;
+	}
+	
 	
 	@GetMapping(value = "fileDown")
 	public ModelAndView fileDown(QnaFilesVO qnaFilesVO)throws Exception{
@@ -35,7 +45,7 @@ public class QnaController {
 		
 		qnaFilesVO = boardQnaService.fileSelect(qnaFilesVO);
 		mv.addObject("file", qnaFilesVO);
-		mv.addObject("board", "qna");
+		
 		mv.setViewName("fileDown");
 		return mv;
 	}
@@ -101,7 +111,7 @@ public class QnaController {
 
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
-		mv.addObject("board", "qna");
+	
 		mv.addObject("PageName", "Qna");
 		mv.setViewName("board/boardList");
 
@@ -113,7 +123,7 @@ public class QnaController {
 	public ModelAndView boardWrite()throws Exception {
 		ModelAndView mv = new ModelAndView();
 
-		mv.addObject("board", "qna");
+		
 		mv.addObject("PageName", "Qna");
 		mv.setViewName("board/boardWrite");
 
@@ -152,7 +162,7 @@ public class QnaController {
 
 		boardVO.setContents(boardVO.getContents().replace("\n\r", "<br>"));
 		
-		mv.addObject("board", "qna");
+		
 		mv.addObject("PageName", "Qna");
 		mv.addObject("dto", boardVO);
 		mv.setViewName("board/boardSelect");
@@ -177,7 +187,7 @@ public class QnaController {
 		
 		mv.addObject("size", size);
 		mv.addObject("dto", boardVO);
-		mv.addObject("board", "qna");
+		
 		mv.addObject("PageName", "Qna");
 		mv.setViewName("board/boardUpdate");
 
