@@ -26,3 +26,10 @@ target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 target/m2e-wtp/web-resources/META-INF/maven/com.cyh/s4/pom.properties
 target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+target/m2e-wtp/web-resources/META-INF/maven/com.cyh/s4/pom.properties
+src/main/resources/properties/DataSource.properties
+src/main/webapp/WEB-INF/spring/root-context.xml
+target/m2e-wtp/web-resources/META-INF/maven/com.cyh/s4/pom.properties
+target/classes/properties/DataSource.properties
+src/main/webapp/WEB-INF/spring/root-context.xml
+target/m2e-wtp/web-resources/META-INF/maven/com.cyh/s4/pom.properties
