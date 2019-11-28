@@ -47,6 +47,9 @@ public class FileSaver {
 		}
 	
 	
+		
+		
+		
 	
 		//2. MultipartFile transferTo  메서드사용
 		public String save (String realPath, MultipartFile  multipartFile)throws Exception{
@@ -107,5 +110,17 @@ public class FileSaver {
 			
 			return fileName;
 		}
+		
+		// File Delete
+		public boolean fileDelete(String realPath, String fileName) throws Exception{
+			File file = new File(realPath, fileName);
+			
+			boolean check = false;
+			if(file.exists()) {
+				check = file.delete();
+			}
+			return check;
+		}
+		
 
 }

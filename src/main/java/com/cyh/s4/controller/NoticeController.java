@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +40,11 @@ public class NoticeController {
 	@Value("#{db['notice']}")
 	private String board;
 	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return board;
+	}
+	
 	@PostMapping(value = "summerFile")
 	public ModelAndView summerFile(MultipartFile file, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -48,6 +54,21 @@ public class NoticeController {
 		return mv;
 
 	}
+	
+	@PostMapping(value = "summerFileDelete")
+	public ModelAndView summerFileDelete(String file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		boolean check = boardNoticeService.summerFileDelete(file, session);
+		String result = "Delete Fail";
+		if(check) {
+			result = "Delete Success";
+		}
+		mv.setViewName("common/common_ajaxResult");
+		mv.addObject("result", result);
+		
+		return mv;
+	}
+	
 	
 
 	@GetMapping(value= "fileDown")
@@ -93,7 +114,7 @@ public class NoticeController {
 		boardVO.setContents(boardVO.getContents().replace("\n\r", "<br>"));
 		
 		
-		mv.addObject("boardVO", boardVO);
+//		mv.addObject("dto", boardVO);
 	
 		mv.addObject("PageName", "Notice");
 		
@@ -114,7 +135,7 @@ public class NoticeController {
 
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
-		
+		mv.addObject("board", board);
 		mv.addObject("PageName", "Notice");
 		mv.setViewName("board/boardList");
 		return mv;
@@ -122,9 +143,11 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value = "noticeWrite" ,method = RequestMethod.GET)
-	public ModelAndView  boardWrite()throws Exception{
+	public ModelAndView  boardWrite(HttpSession session)throws Exception{
+		if(session.getAttribute("member") != null) {
+			
+		}
 		ModelAndView mv = new ModelAndView();
-
 		
 		mv.addObject("PageName", "Notice");
 		mv.setViewName("board/boardWrite");
@@ -139,10 +162,11 @@ public class NoticeController {
 	public ModelAndView boardWrite(BoardVO boardVO , MultipartFile [] file ,HttpSession session) throws Exception{
 
 		ModelAndView  mv = new ModelAndView();
-		for(int i=0;i<file.length;i++) {
-
-			System.out.println(	file[i].getOriginalFilename());
-		}
+		/*
+		 * for(int i=0;i<file.length;i++) {
+		 * 
+		 * System.out.println( file[i].getOriginalFilename()); }
+		 */
 
 
 		int result =boardNoticeService.boardWrite(boardVO , file , session);
@@ -155,7 +179,7 @@ public class NoticeController {
 		}else {
 			mv.addObject("msg","FAIL");
 			mv.addObject("path","noticeList");
-			mv.addObject("boardVO", boardVO);
+			mv.addObject("boardVO", board);
 			mv.setViewName("common/common_result");
 		}
 
@@ -175,7 +199,7 @@ public class NoticeController {
 		int size = noticeVO.getFiles().size();
 		mv.addObject("size", size);
 		mv.addObject("PageName","Notice Board");
-		mv.addObject("boardVO", boardVO);
+		mv.addObject("dto", boardVO);
 		
 		mv.setViewName("board/boardUpdate");
 		return mv;

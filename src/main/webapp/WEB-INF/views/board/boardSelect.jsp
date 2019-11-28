@@ -60,14 +60,10 @@
 	</div>
 
 	<div>
-
-		<c:forEach items="${boardVO.files}" var="file">
-
-			<a href="./fileDown?fnum=${file.fnum}">${file.oname}</a>
-
-		</c:forEach>
-
-	</div>
+			<c:forEach items="${boardVO.files}" var="file">
+				<a href="./fileDown?fnum=${file.fnum}">${file.oname}</a>
+			</c:forEach>
+		</div>
 
 </body>
 

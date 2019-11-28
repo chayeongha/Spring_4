@@ -36,14 +36,20 @@ public class BoardNoticeService implements BoardService {
 	
 	@Value("#{db['notice']}")
 	private String board;
-	
-	@ModelAttribute("board")
-	public String getBoard() {
-		return board;
+
+	public String summerFile(MultipartFile file, HttpSession session) throws Exception{
+		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
+		return fileSaver.save2(realPath, file);
 	}
 	
 	
+	public boolean summerFileDelete(String file, HttpSession session) throws Exception{
+		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
+		return fileSaver.fileDelete(realPath, file);
+	}
 	
+	
+
 	
 	public NoticeFilesVO fileSelect(NoticeFilesVO noticeFilesVO) throws Exception{
 		
@@ -157,9 +163,6 @@ public class BoardNoticeService implements BoardService {
 
 
 
-	public String summerFile(MultipartFile file, HttpSession session) throws Exception{
-		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
-		return fileSaver.save2(realPath, file);
-	}
+	
 
 }
