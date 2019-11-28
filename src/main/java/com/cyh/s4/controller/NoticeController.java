@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,8 @@ public class NoticeController {
 	 * 
 	 * return mv; }
 	 */
+	@Value("${notice}")
+	private String board;
 	
 
 	@GetMapping(value= "fileDown")
